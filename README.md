@@ -1,4 +1,4 @@
-# Langsmith Evaluation Helper
+# LangSmith Evaluation Helper
 
 Helper library from LangSmith that provides an interface to run evaluations by simply writing config files.
 
