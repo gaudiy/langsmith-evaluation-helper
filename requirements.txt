@@ -364,5 +364,5 @@ wcwidth==0.2.13
 wheel==0.43.0
 yarl==1.9.4
     # via aiohttp
-zipp==3.18.2
+zipp==3.19.1
     # via importlib-metadata
