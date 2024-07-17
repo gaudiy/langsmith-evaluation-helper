@@ -8,7 +8,7 @@ from uuid import uuid4
 from langsmith.schemas import Example, Run
 
 
-def run_factory(name: str = "", inputs: dict = None, outputs: dict = None) -> Run:
+def run_factory(name: str = "", inputs: dict | None = None, outputs: dict | None = None) -> Run:
     if inputs is None:
         inputs = {}
     if outputs is None:
@@ -25,7 +25,7 @@ def run_factory(name: str = "", inputs: dict = None, outputs: dict = None) -> Ru
     )
 
 
-def example_factory(inputs: dict = {}, outputs: dict = {}) -> Example:
+def example_factory(inputs: dict | None = None, outputs: dict | None = None) -> Example:
     if inputs is None:
         inputs = {}
     if outputs is None:

@@ -74,7 +74,12 @@ def run_factory(name: str = "", inputs: dict | None = None, outputs: dict | None
     )
 
 
-def example_factory(inputs: dict = {}, outputs: dict = {}) -> Example:
+def example_factory(inputs: dict | None = None, outputs: dict | None = None) -> Example:
+    if inputs is None:
+        inputs = {}
+    if outputs is None:
+        outputs = {}
+
     return Example(
         id=str(uuid4()),
         dataset_id=str(uuid4()),
