@@ -118,7 +118,9 @@ def test_length_evaluator_logic(config: str, create_temp_config_file: Callable[[
 
 @pytest.mark.parametrize("config", Configurations.get_config("multiple_asserts"))
 @mock.patch("langsmith_evaluation_helper.llm.model.ChatModel.invoke", return_value="0.9")
-def test_llm_judge_evaluator_logic(mock_invoke: mock.MagicMock, config: str, create_temp_config_file: Callable[[str], Path]) -> None:
+def test_llm_judge_evaluator_logic(
+    mock_invoke: mock.MagicMock, config: str, create_temp_config_file: Callable[[str], Path]
+) -> None:
     config_file_path = create_temp_config_file(config)
     config_file = load_config(str(config_file_path))
     builtin_evaluators_config = config_file["tests"].get("assert", [])

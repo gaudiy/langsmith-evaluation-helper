@@ -20,7 +20,7 @@ def prompt_fixture() -> str:
 
 @pytest.mark.integration_test
 @pytest.mark.parametrize("config", Configurations.get_config("multi-providers-all"))
-def test_models(config: str, prompt_fixture: str, create_temp_config_file:  Callable[[str], Path]) -> None:
+def test_models(config: str, prompt_fixture: str, create_temp_config_file: Callable[[str], Path]) -> None:
     config_file_path = create_temp_config_file(config)
     config_file = load_config(str(config_file_path))
     for model_config in config_file["providers"]:

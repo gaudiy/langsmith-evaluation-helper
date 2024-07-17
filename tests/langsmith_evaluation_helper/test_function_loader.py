@@ -39,7 +39,7 @@ mock_provider = {"id": "mock_provider", "config": {"temperature": 0.7}}
         ("custom_run", load_prompt_function),
     ],
 )
-def test_load_run_function(config_type: str) -> None:
+def test_load_run_function(config_type: str, expected_function: Any) -> None:
     mock_config = create_mock_config(
         custom_run=(config_type == "custom_run"),
     )

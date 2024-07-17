@@ -137,7 +137,7 @@ response_examples: list[Example] = [
 def test_load_dataset(
     mock_client: mock.MagicMock,
     config_content: str,
-    create_temp_config_file:  Callable[[str], Path],
+    create_temp_config_file: Callable[[str], Path],
 ) -> None:
     mock_client.return_value = MockClient(response_examples=response_examples)
     config_file_path = create_temp_config_file(config_content)
@@ -199,7 +199,7 @@ async def test_main(
     mock_load_evaluators: mock.MagicMock,
     mock_load_dataset: mock.MagicMock,
     config_content: str,
-    create_temp_config_file:  Callable[[str], Path],
+    create_temp_config_file: Callable[[str], Path],
 ) -> None:
     # Mocking values
     mock_load_dataset.return_value = (
