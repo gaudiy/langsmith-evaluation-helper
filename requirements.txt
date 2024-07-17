@@ -30,7 +30,7 @@ boolean-py==4.0
 build==1.2.1
 cachetools==5.3.3
     # via google-auth
-certifi==2024.2.2
+certifi==2024.7.4
     # via
     #   httpcore
     #   httpx
