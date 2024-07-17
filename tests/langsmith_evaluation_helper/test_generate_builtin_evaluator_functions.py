@@ -2,7 +2,10 @@
 #
 # SPDX-License-Identifier: Apache-2.0
 
+from collections.abc import Callable
 from datetime import datetime
+from pathlib import Path
+from typing import Any
 from unittest import mock
 from uuid import uuid4
 
@@ -26,8 +29,8 @@ from langsmith_evaluation_helper.loader import (
 
 
 @pytest.mark.parametrize("config", Configurations.get_all_configs())
-def test_generate_builtin_evaluator_functions(config, create_temp_config_file):
-    config_file_path = create_temp_config_file(config_content=config)
+def test_generate_builtin_evaluator_functions(config: str, create_temp_config_file: Callable[[str], Path]) -> None:
+    config_file_path = create_temp_config_file(config)
     config_file = load_config(str(config_file_path))
     builtin_evaluators_config = config_file["tests"].get("assert", [])
     builtin_evaluators = generate_builtin_evaluator_functions(builtin_evaluators_config)
@@ -46,8 +49,8 @@ def test_generate_builtin_evaluator_functions(config, create_temp_config_file):
 
 
 @pytest.mark.parametrize("config", Configurations.get_config("multiple_asserts"))
-def test_specific_evaluator_generation(config, create_temp_config_file):
-    config_file_path = create_temp_config_file(config_content=config)
+def test_specific_evaluator_generation(config: str, create_temp_config_file: Callable[[str], Path]) -> None:
+    config_file_path = create_temp_config_file(config)
     config_file = load_config(str(config_file_path))
     builtin_evaluators_config = config_file["tests"].get("assert", [])
     evaluators = generate_builtin_evaluator_functions(builtin_evaluators_config)
@@ -57,7 +60,7 @@ def test_specific_evaluator_generation(config, create_temp_config_file):
     assert evaluators[2].__name__ == "similar_evaluator"
 
 
-def run_factory(name: str = "", inputs: dict | None = None, outputs: dict | None = None) -> Run:
+def run_factory(name: str = "", inputs: dict[str, Any] | None = None, outputs: dict[str, Any] | None = None) -> Run:
     if inputs is None:
         inputs = {}
     if outputs is None:
@@ -74,7 +77,7 @@ def run_factory(name: str = "", inputs: dict | None = None, outputs: dict | None
     )
 
 
-def example_factory(inputs: dict | None = None, outputs: dict | None = None) -> Example:
+def example_factory(inputs: dict[str, Any] | None = None, outputs: dict[str, Any] | None = None) -> Example:
     if inputs is None:
         inputs = {}
     if outputs is None:
@@ -93,8 +96,8 @@ def example_factory(inputs: dict | None = None, outputs: dict | None = None) -> 
 
 
 @pytest.mark.parametrize("config", Configurations.get_config("multiple_asserts"))
-def test_length_evaluator_logic(config, create_temp_config_file):
-    config_file_path = create_temp_config_file(config_content=config)
+def test_length_evaluator_logic(config: str, create_temp_config_file: Callable[[str], Path]) -> None:
+    config_file_path = create_temp_config_file(config)
     config_file = load_config(str(config_file_path))
     builtin_evaluators_config = config_file["tests"].get("assert", [])
 
@@ -115,8 +118,8 @@ def test_length_evaluator_logic(config, create_temp_config_file):
 
 @pytest.mark.parametrize("config", Configurations.get_config("multiple_asserts"))
 @mock.patch("langsmith_evaluation_helper.llm.model.ChatModel.invoke", return_value="0.9")
-def test_llm_judge_evaluator_logic(mock_invoke, config, create_temp_config_file):
-    config_file_path = create_temp_config_file(config_content=config)
+def test_llm_judge_evaluator_logic(mock_invoke: mock.MagicMock, config: str, create_temp_config_file: Callable[[str], Path]) -> None:
+    config_file_path = create_temp_config_file(config)
     config_file = load_config(str(config_file_path))
     builtin_evaluators_config = config_file["tests"].get("assert", [])
 
@@ -132,8 +135,8 @@ def test_llm_judge_evaluator_logic(mock_invoke, config, create_temp_config_file)
 
 
 @pytest.mark.parametrize("config", Configurations.get_config("multiple_asserts"))
-def test_similar_evaluator(config, create_temp_config_file):
-    config_file_path = create_temp_config_file(config_content=config)
+def test_similar_evaluator(config: str, create_temp_config_file: Callable[[str], Path]) -> None:
+    config_file_path = create_temp_config_file(config)
     config_file = load_config(str(config_file_path))
     config_file["tests"].get("assert", [])
 

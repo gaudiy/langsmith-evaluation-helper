@@ -2,6 +2,7 @@
 #
 # SPDX-License-Identifier: Apache-2.0
 
+from collections.abc import Callable
 from pathlib import Path
 
 import pytest
@@ -10,7 +11,7 @@ import pytest
 
 
 @pytest.fixture(scope="session")
-def create_temp_config_file(tmp_path_factory):
+def create_temp_config_file(tmp_path_factory: pytest.TempPathFactory) -> Callable[[str], Path]:
     base_temp = tmp_path_factory.mktemp("data")
 
     def _create_temp_config_file(config_content: str) -> Path:

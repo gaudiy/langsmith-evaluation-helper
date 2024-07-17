@@ -2,6 +2,9 @@
 #
 # SPDX-License-Identifier: Apache-2.0
 
+from collections.abc import Callable
+from pathlib import Path
+
 import pytest
 from langchain.prompts import PromptTemplate
 
@@ -11,20 +14,20 @@ from langsmith_evaluation_helper.loader import load_config
 
 
 @pytest.fixture
-def prompt_fixture():
+def prompt_fixture() -> str:
     return "This is a test prompt"
 
 
 @pytest.mark.integration_test
 @pytest.mark.parametrize("config", Configurations.get_config("multi-providers-all"))
-def test_models(config, prompt_fixture, create_temp_config_file):
-    config_file_path = create_temp_config_file(config_content=config)
+def test_models(config: str, prompt_fixture: str, create_temp_config_file:  Callable[[str], Path]) -> None:
+    config_file_path = create_temp_config_file(config)
     config_file = load_config(str(config_file_path))
     for model_config in config_file["providers"]:
         model_id = model_config["id"]
-        config = model_config.get("config", {})
-        azure_deployment = config.get("azure_deployment", None)
-        azure_api_version = config.get("azure_api_version", None)
+        _config = model_config.get("config", {})
+        azure_deployment = _config.get("azure_deployment", None)
+        azure_api_version = _config.get("azure_api_version", None)
         if ("AZURE" in model_id) and (azure_deployment is None or azure_api_version is None):
             raise ValueError("Add azure_deployment and azure_api_version to config for Azure GPT models")
 

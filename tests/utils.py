@@ -3,12 +3,13 @@
 # SPDX-License-Identifier: Apache-2.0
 
 from datetime import datetime
+from typing import Any
 from uuid import uuid4
 
 from langsmith.schemas import Example, Run
 
 
-def run_factory(name: str = "", inputs: dict | None = None, outputs: dict | None = None) -> Run:
+def run_factory(name: str = "", inputs: dict[str, Any] | None = None, outputs: dict[str, Any] | None = None) -> Run:
     if inputs is None:
         inputs = {}
     if outputs is None:
@@ -25,7 +26,7 @@ def run_factory(name: str = "", inputs: dict | None = None, outputs: dict | None
     )
 
 
-def example_factory(inputs: dict | None = None, outputs: dict | None = None) -> Example:
+def example_factory(inputs: dict[str, Any] | None = None, outputs: dict[str, Any] | None = None) -> Example:
     if inputs is None:
         inputs = {}
     if outputs is None:
