@@ -2,17 +2,18 @@
 #
 # SPDX-License-Identifier: Apache-2.0
 
-from enum import Enum
-from langchain.chat_models.base import BaseChatModel
-from typing import Any
-from langchain_openai import AzureChatOpenAI, ChatOpenAI
-from langchain_core.pydantic_v1 import SecretStr
 import os
+from enum import Enum
+from typing import Any
+
+from langchain.chat_models.base import BaseChatModel
+from langchain.schema.output_parser import StrOutputParser
 from langchain_anthropic import ChatAnthropic
 from langchain_core.prompts import PromptTemplate
+from langchain_core.pydantic_v1 import SecretStr
 from langchain_core.runnables import RunnableConfig
-from langchain.schema.output_parser import StrOutputParser
 from langchain_google_vertexai import ChatVertexAI
+from langchain_openai import AzureChatOpenAI, ChatOpenAI
 
 
 class ChatModelName(Enum):
@@ -48,15 +49,7 @@ def get_chat_model(name: ChatModelName, **kwargs: Any) -> BaseChatModel:
         return ChatOpenAI(model=name.value, **kwargs)
     elif name == ChatModelName.AZURE_GPT35_16K_TURBO and (
         (azure_deployment is not None) and (api_version is not None)
-    ):
-        return AzureChatOpenAI(
-            api_key=SecretStr(AZURE_OPENAI_API_KEY),
-            azure_endpoint=AZURE_OPENAI_API_BASE,
-            api_version=api_version,
-            azure_deployment=azure_deployment,
-            **kwargs,
-        )
-    elif name == ChatModelName.AZURE_GPT4_32K and (
+    ) or name == ChatModelName.AZURE_GPT4_32K and (
         (azure_deployment is not None) and (api_version is not None)
     ):
         return AzureChatOpenAI(

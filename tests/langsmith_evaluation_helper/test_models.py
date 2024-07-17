@@ -2,11 +2,12 @@
 #
 # SPDX-License-Identifier: Apache-2.0
 
-from langsmith_evaluation_helper.loader import load_config
 import pytest
+from langchain.prompts import PromptTemplate
+
 from .config_input import Configurations
 from langsmith_evaluation_helper.llm.model import ChatModel, ChatModelName
-from langchain.prompts import PromptTemplate
+from langsmith_evaluation_helper.loader import load_config
 
 
 @pytest.fixture

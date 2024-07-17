@@ -2,24 +2,26 @@
 #
 # SPDX-License-Identifier: Apache-2.0
 
-import pytest
-from langsmith_evaluation_helper.loader import (
-    load_config,
-)
-from langsmith_evaluation_helper.builtin_evaluators import (
-    generate_builtin_evaluator_functions,
-    create_length_evaluator,
-    create_llm_judge_evaluator,
-    create_similar_evaluator,
-)
-from .config_input import Configurations
-from langsmith.schemas import Run, Example
-from uuid import uuid4
 from datetime import datetime
 from unittest import mock
+from uuid import uuid4
+
+import pytest
 from langsmith.evaluation import (
     EvaluationResult,
     EvaluationResults,
+)
+from langsmith.schemas import Example, Run
+
+from .config_input import Configurations
+from langsmith_evaluation_helper.builtin_evaluators import (
+    create_length_evaluator,
+    create_llm_judge_evaluator,
+    create_similar_evaluator,
+    generate_builtin_evaluator_functions,
+)
+from langsmith_evaluation_helper.loader import (
+    load_config,
 )
 
 
@@ -55,7 +57,12 @@ def test_specific_evaluator_generation(config, create_temp_config_file):
     assert evaluators[2].__name__ == "similar_evaluator"
 
 
-def run_factory(name: str = "", inputs: dict = {}, outputs: dict = {}) -> Run:
+def run_factory(name: str = "", inputs: dict | None = None, outputs: dict | None = None) -> Run:
+    if inputs is None:
+        inputs = {}
+    if outputs is None:
+        outputs = {}
+
     return Run(
         id=str(uuid4()),
         name=name,
@@ -133,4 +140,4 @@ def test_similar_evaluator(config, create_temp_config_file):
 
     result = evaluator(run, example)
 
-    assert isinstance(result, (EvaluationResult, EvaluationResults))  # type: ignore
+    assert isinstance(result, EvaluationResult | EvaluationResults)  # type: ignore

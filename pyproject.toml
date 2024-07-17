@@ -58,3 +58,49 @@ langsmith-evaluation-helper = "langsmith_evaluation_helper.cli:main"
 markers = [
     "integration_test: These tests are specifically for integrations and should be used judiciously."
 ]
+
+[tool.ruff]
+line-length = 120
+
+[tool.ruff.lint]
+preview = true
+select = [
+  "F",   # Pyflakes
+  "E",   # pycodestyle
+  "W",   # pycodestyle
+  "I",   # isort
+  "N",   # pep8-naming
+  "UP",  # pyupgrade
+  "B",   # flake8-bugbear
+  "TID", # flake8-tidy-imports
+  "SIM", # flake8-simplify
+  "C4",  # flake8-comprehensions
+]
+
+ignore = [
+  "N802", # Function name {name} should be lowercase
+  "N805", # First argument of a method should be named self
+  # ruff formatter recommends to disable those. see https://docs.astral.sh/ruff/formatter/#conflicting-lint-rules
+  "COM812", # Trailing comma missing
+  "COM819", # Trailing comma prohibited
+  "D206",   # Docstring should be indented with spaces, not tabs
+  "D300",   # Use triple double quotes """
+  "E111",   # Indentation is not a multiple of
+  "E114",   # Indentation is not a multiple of {indent_size} (comment)
+  "E117",   # Over-indented (comment)
+  "E203",   # Whitespace before '{symbol}'
+  "E501",   # Line too long ({width} > {limit})
+  "ISC001", # Implicitly concatenated string literals on one line
+  "ISC002", # Implicitly concatenated string literals over multiple lines
+  "Q000",   # Single quotes found but double quotes preferred
+  "Q001",   # Single quote multiline found but double quotes preferred
+  "Q002",   # Single quote docstring found but double quotes preferred
+  "Q003",   # Change outer quotes to avoid escaping inner quotes
+  "W191",   #　Indentation contains tabs
+]
+
+[tool.ruff.format]
+preview = true
+
+[tool.ruff.lint.isort]
+known-local-folder = ["langsmith_evaluation_helper"]

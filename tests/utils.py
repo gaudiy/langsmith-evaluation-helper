@@ -2,12 +2,18 @@
 #
 # SPDX-License-Identifier: Apache-2.0
 
-from langsmith.schemas import Run, Example
-from uuid import uuid4
 from datetime import datetime
+from uuid import uuid4
+
+from langsmith.schemas import Example, Run
 
 
-def run_factory(name: str = "", inputs: dict = {}, outputs: dict = {}) -> Run:
+def run_factory(name: str = "", inputs: dict = None, outputs: dict = None) -> Run:
+    if inputs is None:
+        inputs = {}
+    if outputs is None:
+        outputs = {}
+
     return Run(
         id=str(uuid4()),
         name=name,
@@ -20,6 +26,11 @@ def run_factory(name: str = "", inputs: dict = {}, outputs: dict = {}) -> Run:
 
 
 def example_factory(inputs: dict = {}, outputs: dict = {}) -> Example:
+    if inputs is None:
+        inputs = {}
+    if outputs is None:
+        outputs = {}
+
     return Example(
         id=str(uuid4()),
         dataset_id=str(uuid4()),

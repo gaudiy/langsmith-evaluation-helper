@@ -2,10 +2,10 @@
 #
 # SPDX-License-Identifier: Apache-2.0
 
-from collections.abc import Awaitable, Callable, Coroutine
-from typing import Any
 import inspect
 import os
+from collections.abc import Awaitable, Callable, Coroutine
+from typing import Any
 
 from langchain.prompts import PromptTemplate
 from langsmith import traceable

@@ -2,14 +2,16 @@
 #
 # SPDX-License-Identifier: Apache-2.0
 
-import pytest
-from typing import Any, Callable
+from collections.abc import Callable
+from typing import Any
 from unittest.mock import patch
 
+import pytest
+
 from langsmith_evaluation_helper.load_run_function import (
-    load_run_function,
-    load_prompt_template,
     load_prompt_function,
+    load_prompt_template,
+    load_run_function,
 )
 
 

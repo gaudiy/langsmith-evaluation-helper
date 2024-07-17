@@ -7,7 +7,9 @@ from langsmith.schemas import Example
 
 # Mock Client class of Langsmith
 class MockClient:
-    def __init__(self, response_examples=[]):
+    def __init__(self, response_examples=None):
+        if response_examples is None:
+            response_examples = []
         self.response_examples = response_examples
 
     def list_examples(self, dataset_name: str) -> list[Example]:

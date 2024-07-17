@@ -2,23 +2,26 @@
 #
 # SPDX-License-Identifier: Apache-2.0
 
-import pytest
-from pathlib import Path
-from typing import Union, Type, Tuple, TypeVar, Callable, Any
-from langsmith_evaluation_helper.loader import (
-    is_async_function,
-    load_function,
-    load_config,
-    main,
-    load_dataset,
-)
+import datetime
 import inspect
+from collections.abc import Callable
+from pathlib import Path
+from typing import Any, TypeVar
 from unittest import mock
+from uuid import UUID
+
+import pytest
+from langsmith.schemas import Example
+
 from .config_input import Configurations
 from .langsmith_mock import MockClient
-from langsmith.schemas import Example
-import datetime
-from uuid import UUID
+from langsmith_evaluation_helper.loader import (
+    is_async_function,
+    load_config,
+    load_dataset,
+    load_function,
+    main,
+)
 
 E = TypeVar("E", bound=BaseException)
 
@@ -68,7 +71,7 @@ def test_load_function_isfunction(
     sample_module_name: str,
     function_name: str,
     expected_output_type: Any,
-    expected_exception_type: Union[Type[E], Tuple[Type[E], ...]],
+    expected_exception_type: type[E] | tuple[type[E], ...],
 ):
     module_path = create_sample_module(
         tmp_path=tmp_path, module_name=sample_module_name
@@ -91,10 +94,10 @@ response_examples: list[Example] = [
         metadata={"dataset_split": ["base"]},
         id=UUID("ef056508-7e6f-44b8-84d7-2a1962d06bd7"),
         created_at=datetime.datetime(
-            2024, 5, 17, 5, 35, 51, 352854, tzinfo=datetime.timezone.utc
+            2024, 5, 17, 5, 35, 51, 352854, tzinfo=datetime.UTC
         ),
         modified_at=datetime.datetime(
-            2024, 6, 11, 5, 19, 22, 448182, tzinfo=datetime.timezone.utc
+            2024, 6, 11, 5, 19, 22, 448182, tzinfo=datetime.UTC
         ),
         runs=[],
         source_run_id=None,
@@ -106,10 +109,10 @@ response_examples: list[Example] = [
         metadata={"dataset_split": ["test"]},
         id=UUID("ef056508-7e6f-44b8-84d7-2a1962d06bd7"),
         created_at=datetime.datetime(
-            2024, 5, 17, 5, 35, 51, 352854, tzinfo=datetime.timezone.utc
+            2024, 5, 17, 5, 35, 51, 352854, tzinfo=datetime.UTC
         ),
         modified_at=datetime.datetime(
-            2024, 6, 11, 5, 19, 22, 448182, tzinfo=datetime.timezone.utc
+            2024, 6, 11, 5, 19, 22, 448182, tzinfo=datetime.UTC
         ),
         runs=[],
         source_run_id=None,
@@ -121,10 +124,10 @@ response_examples: list[Example] = [
         metadata={"dataset_split": ["base"]},
         id=UUID("ef056508-7e6f-44b8-84d7-2a1962d06bd7"),
         created_at=datetime.datetime(
-            2024, 5, 17, 5, 35, 51, 352854, tzinfo=datetime.timezone.utc
+            2024, 5, 17, 5, 35, 51, 352854, tzinfo=datetime.UTC
         ),
         modified_at=datetime.datetime(
-            2024, 6, 11, 5, 19, 22, 448182, tzinfo=datetime.timezone.utc
+            2024, 6, 11, 5, 19, 22, 448182, tzinfo=datetime.UTC
         ),
         runs=[],
         source_run_id=None,
@@ -136,10 +139,10 @@ response_examples: list[Example] = [
         metadata={"dataset_split": ["other"]},
         id=UUID("ef056508-7e6f-44b8-84d7-2a1962d06bd7"),
         created_at=datetime.datetime(
-            2024, 5, 17, 5, 35, 51, 352854, tzinfo=datetime.timezone.utc
+            2024, 5, 17, 5, 35, 51, 352854, tzinfo=datetime.UTC
         ),
         modified_at=datetime.datetime(
-            2024, 6, 11, 5, 19, 22, 448182, tzinfo=datetime.timezone.utc
+            2024, 6, 11, 5, 19, 22, 448182, tzinfo=datetime.UTC
         ),
         runs=[],
         source_run_id=None,
@@ -161,7 +164,7 @@ def test_load_dataset(
     test_info = config_file["tests"]
     split_string = test_info.get("split", None)
     limit = test_info.get("limit", None)
-    dataset_output, experiment_prefix, num_repetitions = load_dataset(config_file)
+    dataset_output, experiment_prefix, _ = load_dataset(config_file)
 
     # Testing for no-split, no-limit
     expected_dataset_name = test_info["dataset_name"]

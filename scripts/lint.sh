@@ -9,4 +9,4 @@ set -x
 
 ${PREFIX}mypy ${SOURCE_FILES}
 ${PREFIX}pyright ${SOURCE_FILES}
-${PREFIX}ruff check ${SOURCE_FILES}
+${PREFIX}ruff check ${SOURCE_FILES} --fix

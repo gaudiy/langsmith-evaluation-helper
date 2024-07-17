@@ -3,13 +3,13 @@
 # SPDX-License-Identifier: Apache-2.0
 
 from collections.abc import Callable
-from typing import Any, Literal, Optional, TypedDict, List, Union
+from typing import Any, Literal, Optional, TypedDict
 
 from langchain.prompts.prompt import PromptTemplate
 from langsmith.evaluation import (
-    LangChainStringEvaluator,
     EvaluationResult,
     EvaluationResults,
+    LangChainStringEvaluator,
 )
 from langsmith.schemas import Example, Run
 
@@ -20,7 +20,7 @@ class BuiltinEvaluatorConfig(TypedDict):
     type: Literal["length", "llm-judge", "similar"]
     value: str
     label: Optional[str]  # noqa: UP007
-    judge_provider: Optional[dict[Any, Any]]
+    judge_provider: dict[Any, Any] | None
 
 
 class EvalResult(TypedDict):
@@ -29,7 +29,7 @@ class EvalResult(TypedDict):
 
 
 Evaluator = Callable[
-    [Run, Example], Union[EvalResult, EvaluationResult, EvaluationResults]
+    [Run, Example], EvalResult | EvaluationResult | EvaluationResults
 ]
 
 
@@ -107,7 +107,7 @@ def create_llm_judge_evaluator(evaluator_config: BuiltinEvaluatorConfig) -> Eval
 def create_similar_evaluator() -> Evaluator:
     def similar_evaluator(
         run: Run, example: Example
-    ) -> Union[EvaluationResult, EvaluationResults]:
+    ) -> EvaluationResult | EvaluationResults:
         evaluator = LangChainStringEvaluator("embedding_distance")
         run_evaluator = evaluator.as_run_evaluator()
         evaluation_result = run_evaluator.evaluate_run(run, example)
@@ -117,8 +117,8 @@ def create_similar_evaluator() -> Evaluator:
 
 
 def generate_builtin_evaluator_functions(
-    evaluator_configs: List[BuiltinEvaluatorConfig],
-) -> List[Evaluator]:
+    evaluator_configs: list[BuiltinEvaluatorConfig],
+) -> list[Evaluator]:
     evaluators = []
 
     for evaluator_config in evaluator_configs:

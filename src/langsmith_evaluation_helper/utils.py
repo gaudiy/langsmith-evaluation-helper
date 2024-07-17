@@ -2,10 +2,10 @@
 #
 # SPDX-License-Identifier: Apache-2.0
 
+import importlib.util
+import inspect
 from collections.abc import Callable
 from typing import Any
-import inspect
-import importlib.util
 
 
 def is_async_function(func: Callable[..., Any]) -> bool:
