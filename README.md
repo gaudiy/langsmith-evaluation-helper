@@ -1,4 +1,4 @@
-# Langsmith Evaluation Helper
+# LangSmith Evaluation Helper
 
 ![CI](https://github.com/gaudiy/langsmith-evaluation-helper/actions/workflows/pr-check.yml/badge.svg)
 
