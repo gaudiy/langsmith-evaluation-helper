@@ -1,0 +1,18 @@
+description: Testing evaluations 
+
+prompt:
+  name: prompt.py
+  type: python
+  entry_function: toxic_example_prompts
+
+evaluators_file_path: evaluations.py
+
+providers:
+  - id: TURBO
+    config:
+      temperature: 0.7
+
+tests:
+  dataset_name: Toxic Queries Split
+  experiment_prefix: toxic_queries_split_test
+  split: test

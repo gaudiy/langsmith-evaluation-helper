@@ -1,0 +1,60 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "langsmith_evaluation_helper"
+description = "Helper library for langsmith evalution"
+version = "0.1.0"
+readme = "README.md"
+license = { file = "LICENSE" }
+
+requires-python = ">= 3.11"
+dependencies = [
+  "langchain",
+  "langchain-anthropic",
+  "langchain-openai",
+  "langchain-google-genai",
+  "langchain_google_vertexai",
+  "langgraph",
+  "python-dotenv",
+  "openai",
+  "pandas",
+  "uvloop",
+  "langsmith",
+  "langchain-community"
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest",
+  "pytest-mock",
+  "pytest-env",
+  "pytest-asyncio",
+  "ruff",
+  "mypy",
+  "Faker",
+  "pyright",
+  "types-requests",
+  "pytest-cov",
+  "types-pyyaml",
+  "direnv", 
+  "build",
+  "setuptools",
+  "wheel",
+  "twine",
+  "pip-licenses",
+  "reuse"
+]
+
+[tool.setuptools]
+package-dir = { "" = "src" }
+include-package-data = true
+
+[project.scripts]
+langsmith-evaluation-helper = "langsmith_evaluation_helper.cli:main"
+
+[tool.pytest.ini_options]
+markers = [
+    "integration_test: These tests are specifically for integrations and should be used judiciously."
+]
