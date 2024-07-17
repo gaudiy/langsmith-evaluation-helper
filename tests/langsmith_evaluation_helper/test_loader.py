@@ -73,9 +73,7 @@ def test_load_function_isfunction(
     expected_output_type: Any,
     expected_exception_type: type[E] | tuple[type[E], ...],
 ):
-    module_path = create_sample_module(
-        tmp_path=tmp_path, module_name=sample_module_name
-    )
+    module_path = create_sample_module(tmp_path=tmp_path, module_name=sample_module_name)
 
     if expected_exception_type:
         with pytest.raises(expected_exception_type):
@@ -93,12 +91,8 @@ response_examples: list[Example] = [
         outputs={"output": "example output 1"},
         metadata={"dataset_split": ["base"]},
         id=UUID("ef056508-7e6f-44b8-84d7-2a1962d06bd7"),
-        created_at=datetime.datetime(
-            2024, 5, 17, 5, 35, 51, 352854, tzinfo=datetime.UTC
-        ),
-        modified_at=datetime.datetime(
-            2024, 6, 11, 5, 19, 22, 448182, tzinfo=datetime.UTC
-        ),
+        created_at=datetime.datetime(2024, 5, 17, 5, 35, 51, 352854, tzinfo=datetime.UTC),
+        modified_at=datetime.datetime(2024, 6, 11, 5, 19, 22, 448182, tzinfo=datetime.UTC),
         runs=[],
         source_run_id=None,
     ),
@@ -108,12 +102,8 @@ response_examples: list[Example] = [
         outputs={"output": "example output 2"},
         metadata={"dataset_split": ["test"]},
         id=UUID("ef056508-7e6f-44b8-84d7-2a1962d06bd7"),
-        created_at=datetime.datetime(
-            2024, 5, 17, 5, 35, 51, 352854, tzinfo=datetime.UTC
-        ),
-        modified_at=datetime.datetime(
-            2024, 6, 11, 5, 19, 22, 448182, tzinfo=datetime.UTC
-        ),
+        created_at=datetime.datetime(2024, 5, 17, 5, 35, 51, 352854, tzinfo=datetime.UTC),
+        modified_at=datetime.datetime(2024, 6, 11, 5, 19, 22, 448182, tzinfo=datetime.UTC),
         runs=[],
         source_run_id=None,
     ),
@@ -123,12 +113,8 @@ response_examples: list[Example] = [
         outputs={"output": "example output 3"},
         metadata={"dataset_split": ["base"]},
         id=UUID("ef056508-7e6f-44b8-84d7-2a1962d06bd7"),
-        created_at=datetime.datetime(
-            2024, 5, 17, 5, 35, 51, 352854, tzinfo=datetime.UTC
-        ),
-        modified_at=datetime.datetime(
-            2024, 6, 11, 5, 19, 22, 448182, tzinfo=datetime.UTC
-        ),
+        created_at=datetime.datetime(2024, 5, 17, 5, 35, 51, 352854, tzinfo=datetime.UTC),
+        modified_at=datetime.datetime(2024, 6, 11, 5, 19, 22, 448182, tzinfo=datetime.UTC),
         runs=[],
         source_run_id=None,
     ),
@@ -138,12 +124,8 @@ response_examples: list[Example] = [
         outputs={"output": "example output 4"},
         metadata={"dataset_split": ["other"]},
         id=UUID("ef056508-7e6f-44b8-84d7-2a1962d06bd7"),
-        created_at=datetime.datetime(
-            2024, 5, 17, 5, 35, 51, 352854, tzinfo=datetime.UTC
-        ),
-        modified_at=datetime.datetime(
-            2024, 6, 11, 5, 19, 22, 448182, tzinfo=datetime.UTC
-        ),
+        created_at=datetime.datetime(2024, 5, 17, 5, 35, 51, 352854, tzinfo=datetime.UTC),
+        modified_at=datetime.datetime(2024, 6, 11, 5, 19, 22, 448182, tzinfo=datetime.UTC),
         runs=[],
         source_run_id=None,
     ),
@@ -180,10 +162,7 @@ def test_load_dataset(
             example
             for example in mocked_examples
             if example.metadata is not None
-            and any(
-                split in example.metadata["dataset_split"]
-                for split in split_string.split(" ")
-            )
+            and any(split in example.metadata["dataset_split"] for split in split_string.split(" "))
         ]
         assert dataset_output == expected_examples
         if expected_experiment_prefix:
@@ -200,10 +179,7 @@ def test_load_dataset(
             example
             for example in mocked_examples
             if example.metadata is not None
-            and any(
-                split in example.metadata["dataset_split"]
-                for split in split_string.split(" ")
-            )
+            and any(split in example.metadata["dataset_split"] for split in split_string.split(" "))
         ][:limit]
         assert dataset_output == expected_examples
         assert experiment_prefix == expected_experiment_prefix
@@ -216,12 +192,8 @@ def test_load_dataset(
 @pytest.mark.parametrize("config_content", Configurations.get_all_configs())
 @mock.patch("langsmith_evaluation_helper.loader.load_dataset")
 @mock.patch("langsmith_evaluation_helper.loader.load_evaluators")
-@mock.patch(
-    "langsmith_evaluation_helper.loader.run_evaluate", new_callable=mock.AsyncMock
-)
-@mock.patch(
-    "langsmith_evaluation_helper.loader.LANGCHAIN_TENANT_ID", new="dummy_tenant_id"
-)
+@mock.patch("langsmith_evaluation_helper.loader.run_evaluate", new_callable=mock.AsyncMock)
+@mock.patch("langsmith_evaluation_helper.loader.LANGCHAIN_TENANT_ID", new="dummy_tenant_id")
 async def test_main(
     mock_run_evaluate,
     mock_load_evaluators,

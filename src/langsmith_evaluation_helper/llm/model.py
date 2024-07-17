@@ -36,9 +36,7 @@ AZURE_OPENAI_API_BASE = os.getenv("AZURE_OPENAI_API_BASE", "")
 
 
 def get_chat_model(name: ChatModelName, **kwargs: Any) -> BaseChatModel:
-    azure_deployment = (
-        kwargs.pop("azure_deployment") if "azure_deployment" in kwargs else None
-    )
+    azure_deployment = kwargs.pop("azure_deployment") if "azure_deployment" in kwargs else None
     api_version = kwargs.pop("api_version") if "api_version" in kwargs else None
     if (
         name == ChatModelName.TURBO
@@ -47,10 +45,11 @@ def get_chat_model(name: ChatModelName, **kwargs: Any) -> BaseChatModel:
         or name == ChatModelName.GPT4O
     ):
         return ChatOpenAI(model=name.value, **kwargs)
-    elif name == ChatModelName.AZURE_GPT35_16K_TURBO and (
-        (azure_deployment is not None) and (api_version is not None)
-    ) or name == ChatModelName.AZURE_GPT4_32K and (
-        (azure_deployment is not None) and (api_version is not None)
+    elif (
+        name == ChatModelName.AZURE_GPT35_16K_TURBO
+        and ((azure_deployment is not None) and (api_version is not None))
+        or name == ChatModelName.AZURE_GPT4_32K
+        and ((azure_deployment is not None) and (api_version is not None))
     ):
         return AzureChatOpenAI(
             api_key=SecretStr(AZURE_OPENAI_API_KEY),

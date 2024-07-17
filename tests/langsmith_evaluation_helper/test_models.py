@@ -25,12 +25,8 @@ def test_models(config, prompt_fixture, create_temp_config_file):
         config = model_config.get("config", {})
         azure_deployment = config.get("azure_deployment", None)
         azure_api_version = config.get("azure_api_version", None)
-        if ("AZURE" in model_id) and (
-            azure_deployment is None or azure_api_version is None
-        ):
-            raise ValueError(
-                "Add azure_deployment and azure_api_version to config for Azure GPT models"
-            )
+        if ("AZURE" in model_id) and (azure_deployment is None or azure_api_version is None):
+            raise ValueError("Add azure_deployment and azure_api_version to config for Azure GPT models")
 
         model = getattr(ChatModelName, model_id, None)
 

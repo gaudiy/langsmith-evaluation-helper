@@ -15,9 +15,7 @@ def custom_run_example(inputs: dict, provider: Provider) -> str:
         raise ValueError("Provider ID is required.")
 
     llm = ChatModel(default_model_name=ChatModelName[id])
-    prompt_template = PromptTemplate(
-        input_variables=["text"], template="Is this sentence toxic? {text}."
-    )
+    prompt_template = PromptTemplate(input_variables=["text"], template="Is this sentence toxic? {text}.")
     messages = prompt_template.format(**inputs)
     formatted_messages = PromptTemplate.from_template(messages)
 

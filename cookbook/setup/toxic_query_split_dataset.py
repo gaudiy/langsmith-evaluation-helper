@@ -29,12 +29,7 @@ toxic_dataset_name = "Toxic Queries Split"
 if not client.has_dataset(dataset_name=toxic_dataset_name):
     toxic_dataset = client.create_dataset(dataset_name=toxic_dataset_name)
     inputs, outputs, splits = zip(
-        *[
-            ({"text": text}, {"label": label}, splits)
-            for text, label, splits in toxic_examples
-        ],
+        *[({"text": text}, {"label": label}, splits) for text, label, splits in toxic_examples],
         strict=False,
     )
-    client.create_examples(
-        inputs=inputs, outputs=outputs, splits=list(splits), dataset_id=toxic_dataset.id
-    )
+    client.create_examples(inputs=inputs, outputs=outputs, splits=list(splits), dataset_id=toxic_dataset.id)

@@ -59,13 +59,9 @@ def execute_prompt(
     provider: dict[Any, Any],
 ) -> str:
     if isinstance(prompt, str):
-        _prompt_template, kwargs = get_prompt_template_and_kwargs_from_inputs(
-            prompt, inputs
-        )
+        _prompt_template, kwargs = get_prompt_template_and_kwargs_from_inputs(prompt, inputs)
     elif isinstance(prompt, InputTypedPromptTemplate):
-        _prompt_template, kwargs = (
-            get_prompt_template_and_kwargs_from_input_typed_prompt_template(prompt)
-        )
+        _prompt_template, kwargs = get_prompt_template_and_kwargs_from_input_typed_prompt_template(prompt)
     else:
         raise ValueError(f"Invalid prompt type: {type(prompt)}")
 
@@ -78,12 +74,8 @@ def execute_prompt(
     temperature = provider_config.get("temperature", 0)
     azure_deployment = provider_config.get("azure_deployment", None)
     azure_api_version = provider_config.get("azure_api_version", None)
-    if ("AZURE" in model_id) and (
-        azure_deployment is None or azure_api_version is None
-    ):
-        raise ValueError(
-            "Add azure_deployment and azure_api_version to config for Azure GPT models"
-        )
+    if ("AZURE" in model_id) and (azure_deployment is None or azure_api_version is None):
+        raise ValueError("Add azure_deployment and azure_api_version to config for Azure GPT models")
     if model is not None:
         llm = ChatModel(
             default_model_name=model,
@@ -121,10 +113,7 @@ def load_prompt_function(
     prompt_file_name: str,
     entry_function_name: str,
     provider: dict[Any, Any],
-) -> (
-    Callable[[dict[str, Any]], Any]
-    | Callable[[dict[str, Any]], Coroutine[Any, Any, Any]]
-):
+) -> Callable[[dict[str, Any]], Any] | Callable[[dict[str, Any]], Coroutine[Any, Any, Any]]:
     script_path = os.path.join(os.path.dirname(config_path), prompt_file_name)
     function_name = entry_function_name
     prompt_func = load_function(script_path, function_name)

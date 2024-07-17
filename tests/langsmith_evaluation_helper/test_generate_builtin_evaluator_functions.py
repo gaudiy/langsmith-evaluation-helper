@@ -114,9 +114,7 @@ def test_length_evaluator_logic(config, create_temp_config_file):
 
 
 @pytest.mark.parametrize("config", Configurations.get_config("multiple_asserts"))
-@mock.patch(
-    "langsmith_evaluation_helper.llm.model.ChatModel.invoke", return_value="0.9"
-)
+@mock.patch("langsmith_evaluation_helper.llm.model.ChatModel.invoke", return_value="0.9")
 def test_llm_judge_evaluator_logic(mock_invoke, config, create_temp_config_file):
     config_file_path = create_temp_config_file(config_content=config)
     config_file = load_config(str(config_file_path))
