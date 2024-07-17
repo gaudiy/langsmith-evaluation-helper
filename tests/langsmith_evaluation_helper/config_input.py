@@ -2,8 +2,6 @@
 #
 # SPDX-License-Identifier: Apache-2.0
 
-from typing import Union, List
-
 
 class Configurations:
     _configs = {
@@ -225,7 +223,7 @@ class Configurations:
           - id: CLAUDE3_OPUS
           - id: CLAUDE3_HAIKU
           - id: CLAUDE3_5_SONNET
-        
+
 
 
         tests:
@@ -234,7 +232,7 @@ class Configurations:
             max_concurrency: 4
             split: base
             limit: 1
-            
+
         """,
         "custom_run": """
         description: Testing load_dataset with limit, split
@@ -276,7 +274,7 @@ class Configurations:
     }
 
     @classmethod
-    def get_config(cls, config_names: Union[str, List[str]]):
+    def get_config(cls, config_names: str | list[str]):
         if isinstance(config_names, str):
             return [cls._configs.get(config_names)]
 

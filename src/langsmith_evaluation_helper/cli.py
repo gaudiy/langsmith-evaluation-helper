@@ -2,9 +2,9 @@
 #
 # SPDX-License-Identifier: Apache-2.0
 
-import sys
-import subprocess
 import os
+import subprocess
+import sys
 
 
 def evaluate(config_path):

@@ -2,10 +2,10 @@
 #
 # SPDX-License-Identifier: Apache-2.0
 
+import importlib.util
+import inspect
 from collections.abc import Callable
 from typing import Any
-import inspect
-import importlib.util
 
 
 def is_async_function(func: Callable[..., Any]) -> bool:
@@ -24,9 +24,7 @@ def load_function(module_path: str, function_name: str) -> Any:
     try:
         spec = importlib.util.spec_from_file_location("module", module_path)
         if spec is None:
-            raise ImportError(
-                f"Cannot find module specification for the path: {module_path}"
-            )
+            raise ImportError(f"Cannot find module specification for the path: {module_path}")
 
         module = importlib.util.module_from_spec(spec)
         if spec.loader is None:
@@ -34,9 +32,7 @@ def load_function(module_path: str, function_name: str) -> Any:
         spec.loader.exec_module(module)
 
         if not hasattr(module, function_name):
-            raise AttributeError(
-                f"Function '{function_name}' not found in module '{module_path}'"
-            )
+            raise AttributeError(f"Function '{function_name}' not found in module '{module_path}'")
     except (ImportError, AttributeError) as error:
         print(f"Error: {error}")
         raise

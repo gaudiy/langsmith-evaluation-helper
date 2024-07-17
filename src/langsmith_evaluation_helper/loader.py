@@ -8,13 +8,12 @@ import sys
 from typing import Any
 
 import yaml
+from langsmith import Client, aevaluate, evaluate
 
 from langsmith_evaluation_helper.builtin_evaluators import (
     generate_builtin_evaluator_functions,
 )
 from langsmith_evaluation_helper.load_run_function import load_run_function
-from langsmith import aevaluate, evaluate, Client
-
 from langsmith_evaluation_helper.utils import is_async_function, load_function
 
 LANGCHAIN_TENANT_ID = os.getenv("LANGCHAIN_TENANT_ID", None)
@@ -71,9 +70,7 @@ def load_evaluators(config: dict[Any, Any]) -> tuple[Any, Any]:
     builtin_evaluators_config = config["tests"].get("assert", [])
     builtin_evaluators = generate_builtin_evaluator_functions(builtin_evaluators_config)
 
-    evaluators_file_path = os.path.join(
-        os.path.dirname(config_path), config["evaluators_file_path"]
-    )
+    evaluators_file_path = os.path.join(os.path.dirname(config_path), config["evaluators_file_path"])
     evaluators = load_function(evaluators_file_path, "evaluators") + builtin_evaluators
     summary_evaluators = load_function(evaluators_file_path, "summary_evaluators")
 
@@ -107,11 +104,7 @@ async def run_evaluate(
         result = evaluate(prompt_func, **common_args)
         dataset_id = result._manager.dataset_id
     experiment_id = None
-    if (
-        result._manager
-        and result._manager._experiment
-        and result._manager._experiment.id is not None
-    ):
+    if result._manager and result._manager._experiment and result._manager._experiment.id is not None:
         experiment_id = result._manager._experiment.id.__str__()
 
     return dataset_id, experiment_id
@@ -152,7 +145,9 @@ async def main(config_file: dict[Any, Any]) -> None:
         seed_url = "https://smith.langchain.com/o/"
         experiment_id_query_str = "%2C".join(experiment_ids)
 
-        url = f"{seed_url}{LANGCHAIN_TENANT_ID}/datasets/{dataset_id}/compare?selectedSessions={experiment_id_query_str}"
+        url = (
+            f"{seed_url}{LANGCHAIN_TENANT_ID}/datasets/{dataset_id}/compare?selectedSessions={experiment_id_query_str}"
+        )
         print(url)
 
 

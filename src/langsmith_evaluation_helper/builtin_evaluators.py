@@ -3,13 +3,13 @@
 # SPDX-License-Identifier: Apache-2.0
 
 from collections.abc import Callable
-from typing import Any, Literal, Optional, TypedDict, List, Union
+from typing import Any, Literal, Optional, TypedDict
 
 from langchain.prompts.prompt import PromptTemplate
 from langsmith.evaluation import (
-    LangChainStringEvaluator,
     EvaluationResult,
     EvaluationResults,
+    LangChainStringEvaluator,
 )
 from langsmith.schemas import Example, Run
 
@@ -20,7 +20,7 @@ class BuiltinEvaluatorConfig(TypedDict):
     type: Literal["length", "llm-judge", "similar"]
     value: str
     label: Optional[str]  # noqa: UP007
-    judge_provider: Optional[dict[Any, Any]]
+    judge_provider: dict[Any, Any] | None
 
 
 class EvalResult(TypedDict):
@@ -28,9 +28,7 @@ class EvalResult(TypedDict):
     score: float
 
 
-Evaluator = Callable[
-    [Run, Example], Union[EvalResult, EvaluationResult, EvaluationResults]
-]
+Evaluator = Callable[[Run, Example], EvalResult | EvaluationResult | EvaluationResults]
 
 
 def create_length_evaluator(evaluator_config: BuiltinEvaluatorConfig) -> Evaluator:
@@ -54,9 +52,7 @@ def create_length_evaluator(evaluator_config: BuiltinEvaluatorConfig) -> Evaluat
             else:
                 raise ValueError
         except Exception:
-            print(
-                f"[Warning] Invalid integer value in evaluator_config['value']: {value}"
-            )
+            print(f"[Warning] Invalid integer value in evaluator_config['value']: {value}")
             return {"key": "length", "score": False}
 
         return {"key": "length", "score": score}
@@ -67,20 +63,14 @@ def create_length_evaluator(evaluator_config: BuiltinEvaluatorConfig) -> Evaluat
 def create_llm_judge_evaluator(evaluator_config: BuiltinEvaluatorConfig) -> Evaluator:
     def llm_judge_evaluator(run: Run, example: Example) -> EvalResult:
         judge_provider = evaluator_config.get("judge_provider")
-        if (
-            judge_provider is None
-            or ("id" not in judge_provider)
-            or ("config" not in judge_provider)
-        ):
+        if judge_provider is None or ("id" not in judge_provider) or ("config" not in judge_provider):
             raise ValueError("Please provide llm-judge judge_provider id and config")
         judge_model_id = judge_provider["id"]
         judge_model = getattr(ChatModelName, judge_model_id, None)
 
         temperature = judge_provider["config"]["temperature"]
         if judge_model is not None:
-            model = ChatModel(
-                default_model_name=judge_model, temperature=temperature, verbose=True
-            )
+            model = ChatModel(default_model_name=judge_model, temperature=temperature, verbose=True)
         else:
             raise ValueError(f"Invalid judge model_id: {judge_model_id}")
         evaluate_prompt = """Evaluate and give a score between 0 to 1 the following text with the evaluation perspective specified in the prompt.
@@ -105,9 +95,7 @@ def create_llm_judge_evaluator(evaluator_config: BuiltinEvaluatorConfig) -> Eval
 
 
 def create_similar_evaluator() -> Evaluator:
-    def similar_evaluator(
-        run: Run, example: Example
-    ) -> Union[EvaluationResult, EvaluationResults]:
+    def similar_evaluator(run: Run, example: Example) -> EvaluationResult | EvaluationResults:
         evaluator = LangChainStringEvaluator("embedding_distance")
         run_evaluator = evaluator.as_run_evaluator()
         evaluation_result = run_evaluator.evaluate_run(run, example)
@@ -117,8 +105,8 @@ def create_similar_evaluator() -> Evaluator:
 
 
 def generate_builtin_evaluator_functions(
-    evaluator_configs: List[BuiltinEvaluatorConfig],
-) -> List[Evaluator]:
+    evaluator_configs: list[BuiltinEvaluatorConfig],
+) -> list[Evaluator]:
     evaluators = []
 
     for evaluator_config in evaluator_configs:

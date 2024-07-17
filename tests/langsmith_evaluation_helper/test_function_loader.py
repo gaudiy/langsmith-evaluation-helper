@@ -2,14 +2,16 @@
 #
 # SPDX-License-Identifier: Apache-2.0
 
-import pytest
-from typing import Any, Callable
+from collections.abc import Callable
+from typing import Any
 from unittest.mock import patch
 
+import pytest
+
 from langsmith_evaluation_helper.load_run_function import (
-    load_run_function,
-    load_prompt_template,
     load_prompt_function,
+    load_prompt_template,
+    load_run_function,
 )
 
 
@@ -45,11 +47,10 @@ def test_load_run_function(config_type: str, expected_function: Callable):
     if config_type == "none":
         mock_config = {}
 
-    with patch(
-        "langsmith_evaluation_helper.load_run_function.load_prompt_template"
-    ) as mock_load_template, patch(
-        "langsmith_evaluation_helper.load_run_function.load_prompt_function"
-    ) as mock_load_function:
+    with (
+        patch("langsmith_evaluation_helper.load_run_function.load_prompt_template") as mock_load_template,
+        patch("langsmith_evaluation_helper.load_run_function.load_prompt_function") as mock_load_function,
+    ):
         mock_load_template.return_value = lambda x: "template_result"
         mock_load_function.return_value = lambda x: "function_result"
 
@@ -60,9 +61,7 @@ def test_load_run_function(config_type: str, expected_function: Callable):
         else:
             assert callable(result)
             if config_type == "prompt":
-                mock_load_template.assert_called_once_with(
-                    "/mock/path/config.yaml", mock_config, mock_provider
-                )
+                mock_load_template.assert_called_once_with("/mock/path/config.yaml", mock_config, mock_provider)
                 assert result({"input": "test"}) == "template_result"
             elif config_type == "custom_run":
                 assert result({"input": "test"}) == "function_result"
@@ -75,9 +74,7 @@ async def test_load_run_function_async():
     async def mock_async_function(inputs: dict[Any, Any]) -> Any:
         return inputs
 
-    with patch(
-        "langsmith_evaluation_helper.load_run_function.load_prompt_function"
-    ) as mock_load_func:
+    with patch("langsmith_evaluation_helper.load_run_function.load_prompt_function") as mock_load_func:
         mock_load_func.return_value = mock_async_function
 
         result = load_run_function("/mock/path/config.yaml", mock_config, mock_provider)
@@ -96,9 +93,7 @@ def test_load_run_function_error():
         },
     }
 
-    with pytest.raises(
-        ValueError, match="prompt and custom_run cannot be specified simultaneously"
-    ):
+    with pytest.raises(ValueError, match="prompt and custom_run cannot be specified simultaneously"):
         load_run_function("/mock/path/config.yaml", mock_config, mock_provider)
 
 
