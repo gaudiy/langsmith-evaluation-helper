@@ -1,5 +1,7 @@
 # LangSmith Evaluation Helper
 
+![CI](https://github.com/gaudiy/langsmith-evaluation-helper/actions/workflows/pr-check.yml/badge.svg)
+
 Helper library from LangSmith that provides an interface to run evaluations by simply writing config files.
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
