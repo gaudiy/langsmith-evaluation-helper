@@ -320,7 +320,7 @@ doctoc README.md
 
 ## Contribution
 
-We warmly welcome and greatly value contributions to the langsmith-evaluation-helper. However, before diving in, we kindly request that you take a moment to review our [Contribution Guidelines](CONTRIBUTION.md).
+We warmly welcome and greatly value contributions to the langsmith-evaluation-helper. However, before diving in, we kindly request that you take a moment to review our [Contribution Guidelines](CONTRIBUTING.md).
 
 Additionally, please carefully read the Contributor License Agreement (CLA) before submitting your contribution to Gaudiy. By submitting your contribution, you are considered to have accepted and agreed to be bound by the terms and conditions outlined in the CLA, regardless of circumstances.
 
