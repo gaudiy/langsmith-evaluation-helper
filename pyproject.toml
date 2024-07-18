@@ -117,4 +117,3 @@ disable_error_code = [
   "unused-ignore",   # Unused "type: ignore" comment
 ]
 explicit_package_bases = true
-exclude = "ai_testing/cookbooks"
