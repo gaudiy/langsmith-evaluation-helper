@@ -274,7 +274,7 @@ class Configurations:
     }
 
     @classmethod
-    def get_config(cls, config_names: str | list[str]):
+    def get_config(cls, config_names: str | list[str]) -> list[str | None]:
         if isinstance(config_names, str):
             return [cls._configs.get(config_names)]
 
@@ -284,5 +284,5 @@ class Configurations:
         raise ValueError("config_names must be a string or a list of strings")
 
     @classmethod
-    def get_all_configs(cls):
+    def get_all_configs(cls) -> list[str]:
         return list(cls._configs.values())

@@ -28,10 +28,10 @@ E = TypeVar("E", bound=BaseException)
 
 # Testing is_async_function
 def test_is_async_function() -> None:
-    async def async_func():
+    async def async_func() -> None:
         pass
 
-    def sync_func():
+    def sync_func() -> None:
         pass
 
     assert is_async_function(async_func) is True
@@ -72,7 +72,7 @@ def test_load_function_isfunction(
     function_name: str,
     expected_output_type: Any,
     expected_exception_type: type[E] | tuple[type[E], ...],
-):
+) -> None:
     module_path = create_sample_module(tmp_path=tmp_path, module_name=sample_module_name)
 
     if expected_exception_type:
@@ -135,12 +135,12 @@ response_examples: list[Example] = [
 @pytest.mark.parametrize("config_content", Configurations.get_all_configs())
 @mock.patch("langsmith_evaluation_helper.loader.Client")
 def test_load_dataset(
-    mock_client,
-    config_content,
-    create_temp_config_file,
-):
+    mock_client: mock.MagicMock,
+    config_content: str,
+    create_temp_config_file: Callable[[str], Path],
+) -> None:
     mock_client.return_value = MockClient(response_examples=response_examples)
-    config_file_path = create_temp_config_file(config_content=config_content)
+    config_file_path = create_temp_config_file(config_content)
     config_file = load_config(str(config_file_path))
 
     test_info = config_file["tests"]
@@ -195,12 +195,12 @@ def test_load_dataset(
 @mock.patch("langsmith_evaluation_helper.loader.run_evaluate", new_callable=mock.AsyncMock)
 @mock.patch("langsmith_evaluation_helper.loader.LANGCHAIN_TENANT_ID", new="dummy_tenant_id")
 async def test_main(
-    mock_run_evaluate,
-    mock_load_evaluators,
-    mock_load_dataset,
-    config_content,
-    create_temp_config_file,
-):
+    mock_run_evaluate: mock.MagicMock,
+    mock_load_evaluators: mock.MagicMock,
+    mock_load_dataset: mock.MagicMock,
+    config_content: str,
+    create_temp_config_file: Callable[[str], Path],
+) -> None:
     # Mocking values
     mock_load_dataset.return_value = (
         "dataset_name",

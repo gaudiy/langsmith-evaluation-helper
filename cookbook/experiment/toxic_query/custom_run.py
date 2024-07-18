@@ -2,13 +2,15 @@
 #
 # SPDX-License-Identifier: Apache-2.0
 
+from typing import Any
+
 from langchain.prompts import PromptTemplate
 
 from langsmith_evaluation_helper.llm.model import ChatModel, ChatModelName
 from langsmith_evaluation_helper.schema import Provider
 
 
-def custom_run_example(inputs: dict, provider: Provider) -> str:
+def custom_run_example(inputs: dict[str, Any], provider: Provider) -> str:
     # replace with your favorite way of calling LLM or RAG or anything!
     id = provider.get("id")
     if id is None:

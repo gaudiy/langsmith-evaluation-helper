@@ -4,7 +4,7 @@ import pytest
 
 
 @pytest.mark.integration_test
-def test_loader():
+def test_loader() -> None:
     # Run the loader.py script and capture the output
     result = subprocess.run(
         [

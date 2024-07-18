@@ -2,7 +2,6 @@
 #
 # SPDX-License-Identifier: Apache-2.0
 
-from collections.abc import Callable
 from typing import Any
 from unittest.mock import patch
 
@@ -40,7 +39,7 @@ mock_provider = {"id": "mock_provider", "config": {"temperature": 0.7}}
         ("custom_run", load_prompt_function),
     ],
 )
-def test_load_run_function(config_type: str, expected_function: Callable):
+def test_load_run_function(config_type: str, expected_function: Any) -> None:
     mock_config = create_mock_config(
         custom_run=(config_type == "custom_run"),
     )
@@ -68,7 +67,7 @@ def test_load_run_function(config_type: str, expected_function: Callable):
 
 
 @pytest.mark.asyncio
-async def test_load_run_function_async():
+async def test_load_run_function_async() -> None:
     mock_config = create_mock_config(custom_run=True)
 
     async def mock_async_function(inputs: dict[Any, Any]) -> Any:
@@ -84,7 +83,7 @@ async def test_load_run_function_async():
         assert await result({"test": "input"}) == {"test": "input"}
 
 
-def test_load_run_function_error():
+def test_load_run_function_error() -> None:
     mock_config = {
         "prompt": {"name": "mock_prompt.py", "entry_function": "mock_entry_function"},
         "custom_run": {

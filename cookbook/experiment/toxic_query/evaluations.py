@@ -17,7 +17,7 @@ def fetch_output_message(run: Run) -> str | None:
     return output_message
 
 
-def correct_label(run: Run, example: Example) -> dict:
+def correct_label(run: Run, example: Example) -> dict[str, Any]:
     output_message = fetch_output_message(run)
     ref_label = None
     if output_message is None:

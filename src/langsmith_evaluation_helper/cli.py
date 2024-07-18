@@ -7,7 +7,7 @@ import subprocess
 import sys
 
 
-def evaluate(config_path):
+def evaluate(config_path: str) -> None:
     # Determine the absolute path of loader.py within the package
     package_dir = os.path.dirname(os.path.realpath(__file__))
     loader_path = os.path.join(package_dir, "loader.py")
@@ -19,7 +19,7 @@ def evaluate(config_path):
     subprocess.run([sys.executable, loader_path, config_path])
 
 
-def main():
+def main() -> None:
     if len(sys.argv) < 2:
         print("Usage: langsmith-evaluation-helper evaluate /path/to/config")
         sys.exit(1)

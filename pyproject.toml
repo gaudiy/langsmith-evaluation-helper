@@ -104,3 +104,16 @@ preview = true
 
 [tool.ruff.lint.isort]
 known-local-folder = ["langsmith_evaluation_helper"]
+
+[tool.mypy]
+python_version = "3.11"
+ignore_missing_imports = true
+check_untyped_defs = true
+strict = true
+disable_error_code = [
+  "no-untyped-call", # Call to untyped function "xxx" in typed context
+  "no-any-return",   # Returning Any from function declared to return "xxx"
+  "misc",            # Class cannot subclass "xxx" (has type "Any")
+  "unused-ignore",   # Unused "type: ignore" comment
+]
+explicit_package_bases = true
