@@ -274,12 +274,8 @@ uv pip install -e .
 For the package to run, it will require langchain API key and required model's API keys such as OpenAI's Keys. 
 
 1. Save the API keys in the .env file
-2. Create .envrc
 
-```
-echo 'dotenv' > .envrc
-```
-3. Make the `.env` file accessable to `direnv`. Note: if you are using zsh, run 
+2. Make the `.env` file accessable to `direnv`. Note: if you are using zsh, run 
 ```
 eval "$(direnv hook zsh)"
 direnv allow .
