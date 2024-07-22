@@ -7,36 +7,37 @@ Helper library from LangSmith that provides an interface to run evaluations by s
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
-- [Quick Start](#quick-start)
-  - [Installation](#installation)
-  - [Configuration](#configuration)
-    - [Sample config.yml file.](#sample-configyml-file)
-    - [Configuration file description](#configuration-file-description)
-      - [**`description`**](#description)
-      - [**`prompt`**](#prompt)
-      - [**`custom_run`**](#custom_run)
-      - [**`evaluators_file_path`**](#evaluators_file_path)
-      - [**`providers`**](#providers)
-      - [**`tests`**](#tests)
-    - [Supported Models and IDs](#supported-models-and-ids)
-  - [How to run](#how-to-run)
-    - [CLI Options.](#cli-options)
-  - [Cookbooks](#cookbooks)
-- [Setup for developers](#setup-for-developers)
-  - [Requirements](#requirements)
-  - [Setup](#setup)
-  - [Create a virtual environment](#create-a-virtual-environment)
-  - [Install dependencies](#install-dependencies)
-  - [Install package locally](#install-package-locally)
-  - [Run](#run)
-  - [Pytest Tools](#pytest-tools)
-    - [Code coverage](#code-coverage)
-    - [For only the unit test](#for-only-the-unit-test)
-    - [For all test including unit and integration test](#for-all-test-including-unit-and-integration-test)
-  - [Modifying README](#modifying-readme)
-    - [Install doctoc](#install-doctoc)
-    - [Run doctoc](#run-doctoc)
-- [Contribution](#contribution)
+- [LangSmith Evaluation Helper](#langsmith-evaluation-helper)
+  - [Quick Start](#quick-start)
+    - [Installation](#installation)
+    - [Configuration](#configuration)
+      - [Sample config.yml file.](#sample-configyml-file)
+      - [Configuration file description](#configuration-file-description)
+        - [**`description`**](#description)
+        - [**`prompt`**](#prompt)
+        - [**`custom_run`**](#custom_run)
+        - [**`evaluators_file_path`**](#evaluators_file_path)
+        - [**`providers`**](#providers)
+        - [**`tests`**](#tests)
+      - [Supported Models and IDs](#supported-models-and-ids)
+    - [How to run](#how-to-run)
+      - [CLI Options.](#cli-options)
+    - [Cookbooks](#cookbooks)
+  - [Setup for developers](#setup-for-developers)
+    - [Requirements](#requirements)
+    - [Setup](#setup)
+    - [Create a virtual environment](#create-a-virtual-environment)
+    - [Install dependencies](#install-dependencies)
+    - [Install package locally](#install-package-locally)
+    - [Run](#run)
+    - [Pytest Tools](#pytest-tools)
+      - [Code coverage](#code-coverage)
+      - [For only the unit test](#for-only-the-unit-test)
+      - [For all test including unit and integration test](#for-all-test-including-unit-and-integration-test)
+    - [Modifying README](#modifying-readme)
+      - [Install doctoc](#install-doctoc)
+      - [Run doctoc](#run-doctoc)
+  - [Contribution](#contribution)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -237,7 +238,7 @@ brew install uv
 Create a virtual environment at .venv. with a particular version of python, eg python3.11
 
 ```
-uv venv --python=$(which python3.11)
+uv venv --python 3.11
 ```
 
 To activate the virtual environment:
