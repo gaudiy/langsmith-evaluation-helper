@@ -72,12 +72,7 @@ To set up the development environment, follow these steps:
    ANTHROPIC_API_KEY=your_anthropic_api_key
    ```
 
-6. **Use direnv to manage environment variables**: Create a `.envrc` file in the root of the repository and add the following line to load the environment variables from the `.env` file:
-   ```bash
-   dotenv
-   ```
-
-7. **Run tests**: Run the tests to ensure that your changes do not introduce any new issues. Use the following command:
+6. **Run tests**: Run the tests to ensure that your changes do not introduce any new issues. Use the following command:
    ```bash
    make test
    ```
