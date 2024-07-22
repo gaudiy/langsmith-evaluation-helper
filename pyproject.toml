@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "langsmith_evaluation_helper"
 description = "Helper library for langsmith evalution"
-version = "0.1.1-alpha"
+version = "0.1.1"
 readme = "README.md"
 license = { file = "LICENSE" }
 
