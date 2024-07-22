@@ -9,6 +9,7 @@ Helper library from LangSmith that provides an interface to run evaluations by s
 
 - [Quick Start](#quick-start)
   - [Installation](#installation)
+  - [Setup environment variables](#setup-environment-variables)
   - [Configuration](#configuration)
     - [Sample config.yml file.](#sample-configyml-file)
     - [Configuration file description](#configuration-file-description)
@@ -47,6 +48,20 @@ To get started, [install the package](https://pypi.org/project/langsmith-evaluat
 
 ```
 pip install langsmith-evaluation-helper
+```
+
+### Setup environment variables
+
+add `.env` file with Tenant ID of LangSmith and API Keys you want to run with.
+Tenant ID can be taken from URL of LangSmith `https://smith.langchain.com/o/{THIS IS YOUR TENANT ID}`
+
+```
+LANGCHAIN_TENANT_ID=xxxxx
+
+# API Keys of LLM Provider you want to run with
+OPEN_AI_API_KEY=
+ANTHROPIC_API_KEY=
+GOOGLE_API_KEY=
 ```
 
 ### Configuration
