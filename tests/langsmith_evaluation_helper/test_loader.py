@@ -2,16 +2,16 @@
 #
 # SPDX-License-Identifier: Apache-2.0
 
-import datetime
 import inspect
 from collections.abc import Callable
 from pathlib import Path
 from typing import Any, TypeVar
 from unittest import mock
-from uuid import UUID
 
 import pytest
 from langsmith.schemas import Example
+
+from tests.factory import example_factory
 
 from .config_input import Configurations
 from .langsmith_mock import MockClient
@@ -85,49 +85,17 @@ def test_load_function_isfunction(
 
 
 response_examples: list[Example] = [
-    Example(
-        dataset_id=UUID("a01b4fbe-2fd5-4fb5-ba2f-75110cfabe6b"),
-        inputs={"name": "Example1"},
-        outputs={"output": "example output 1"},
-        metadata={"dataset_split": ["base"]},
-        id=UUID("ef056508-7e6f-44b8-84d7-2a1962d06bd7"),
-        created_at=datetime.datetime(2024, 5, 17, 5, 35, 51, 352854, tzinfo=datetime.UTC),
-        modified_at=datetime.datetime(2024, 6, 11, 5, 19, 22, 448182, tzinfo=datetime.UTC),
-        runs=[],
-        source_run_id=None,
+    example_factory(
+        inputs={"name": "Example1"}, outputs={"output": "example output 1"}, metadata={"dataset_split": ["base"]}
     ),
-    Example(
-        dataset_id=UUID("a01b4fbe-2fd5-4fb5-ba2f-75110cfabe6b"),
-        inputs={"name": "Example2"},
-        outputs={"output": "example output 2"},
-        metadata={"dataset_split": ["test"]},
-        id=UUID("ef056508-7e6f-44b8-84d7-2a1962d06bd7"),
-        created_at=datetime.datetime(2024, 5, 17, 5, 35, 51, 352854, tzinfo=datetime.UTC),
-        modified_at=datetime.datetime(2024, 6, 11, 5, 19, 22, 448182, tzinfo=datetime.UTC),
-        runs=[],
-        source_run_id=None,
+    example_factory(
+        inputs={"name": "Example2"}, outputs={"output": "example output 2"}, metadata={"dataset_split": ["test"]}
     ),
-    Example(
-        dataset_id=UUID("a01b4fbe-2fd5-4fb5-ba2f-75110cfabe6b"),
-        inputs={"name": "Example3"},
-        outputs={"output": "example output 3"},
-        metadata={"dataset_split": ["base"]},
-        id=UUID("ef056508-7e6f-44b8-84d7-2a1962d06bd7"),
-        created_at=datetime.datetime(2024, 5, 17, 5, 35, 51, 352854, tzinfo=datetime.UTC),
-        modified_at=datetime.datetime(2024, 6, 11, 5, 19, 22, 448182, tzinfo=datetime.UTC),
-        runs=[],
-        source_run_id=None,
+    example_factory(
+        inputs={"name": "Example3"}, outputs={"output": "example output 3"}, metadata={"dataset_split": ["base"]}
     ),
-    Example(
-        dataset_id=UUID("a01b4fbe-2fd5-4fb5-ba2f-75110cfabe6b"),
-        inputs={"name": "Example4"},
-        outputs={"output": "example output 4"},
-        metadata={"dataset_split": ["other"]},
-        id=UUID("ef056508-7e6f-44b8-84d7-2a1962d06bd7"),
-        created_at=datetime.datetime(2024, 5, 17, 5, 35, 51, 352854, tzinfo=datetime.UTC),
-        modified_at=datetime.datetime(2024, 6, 11, 5, 19, 22, 448182, tzinfo=datetime.UTC),
-        runs=[],
-        source_run_id=None,
+    example_factory(
+        inputs={"name": "Example4"}, outputs={"output": "example output 4"}, metadata={"dataset_split": ["other"]}
     ),
 ]
 
@@ -183,9 +151,6 @@ def test_load_dataset(
         ][:limit]
         assert dataset_output == expected_examples
         assert experiment_prefix == expected_experiment_prefix
-
-
-# TODO: Also make module_name into parameterization later.
 
 
 @pytest.mark.asyncio
