@@ -26,18 +26,22 @@ def run_factory(name: str = "", inputs: dict[str, Any] | None = None, outputs: d
     )
 
 
-def example_factory(inputs: dict[str, Any] | None = None, outputs: dict[str, Any] | None = None) -> Example:
+def example_factory(
+    inputs: dict[str, Any] | None = None, outputs: dict[str, Any] | None = None, metadata: dict[str, Any] | None = None
+) -> Example:
     if inputs is None:
         inputs = {}
     if outputs is None:
         outputs = {}
+    if metadata is None:
+        metadata = {}
 
     return Example(
         id=str(uuid4()),
         dataset_id=str(uuid4()),
         created_at=datetime.now(),
         inputs={},
-        metadata={},
+        metadata=metadata,
         modified_at=None,
         outputs=outputs,
         runs=[],

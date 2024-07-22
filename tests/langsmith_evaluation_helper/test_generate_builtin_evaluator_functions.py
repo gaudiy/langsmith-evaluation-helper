@@ -3,18 +3,16 @@
 # SPDX-License-Identifier: Apache-2.0
 
 from collections.abc import Callable
-from datetime import datetime
 from pathlib import Path
-from typing import Any
 from unittest import mock
-from uuid import uuid4
 
 import pytest
 from langsmith.evaluation import (
     EvaluationResult,
     EvaluationResults,
 )
-from langsmith.schemas import Example, Run
+
+from tests.factory import example_factory, run_factory
 
 from .config_input import Configurations
 from langsmith_evaluation_helper.builtin_evaluators import (
@@ -58,41 +56,6 @@ def test_specific_evaluator_generation(config: str, create_temp_config_file: Cal
     assert evaluators[0].__name__ == "length_evaluator"
     assert evaluators[1].__name__ == "llm_judge_evaluator"
     assert evaluators[2].__name__ == "similar_evaluator"
-
-
-def run_factory(name: str = "", inputs: dict[str, Any] | None = None, outputs: dict[str, Any] | None = None) -> Run:
-    if inputs is None:
-        inputs = {}
-    if outputs is None:
-        outputs = {}
-
-    return Run(
-        id=str(uuid4()),
-        name=name,
-        start_time=datetime.now(),
-        run_type="test_type",
-        trace_id=str(uuid4()),
-        inputs={},
-        outputs=outputs,
-    )
-
-
-def example_factory(inputs: dict[str, Any] | None = None, outputs: dict[str, Any] | None = None) -> Example:
-    if inputs is None:
-        inputs = {}
-    if outputs is None:
-        outputs = {}
-
-    return Example(
-        id=str(uuid4()),
-        dataset_id=str(uuid4()),
-        created_at=datetime.now(),
-        inputs={},
-        metadata={},
-        modified_at=None,
-        outputs=outputs,
-        runs=[],
-    )
 
 
 @pytest.mark.parametrize("config", Configurations.get_config("multiple_asserts"))
