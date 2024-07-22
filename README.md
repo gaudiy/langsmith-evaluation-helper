@@ -9,6 +9,7 @@ Helper library from LangSmith that provides an interface to run evaluations by s
 
 - [Quick Start](#quick-start)
   - [Installation](#installation)
+  - [Setup environment variables](#setup-environment-variables)
   - [Configuration](#configuration)
     - [Sample config.yml file.](#sample-configyml-file)
     - [Configuration file description](#configuration-file-description)
@@ -47,6 +48,28 @@ To get started, [install the package](https://pypi.org/project/langsmith-evaluat
 
 ```
 pip install langsmith-evaluation-helper
+```
+
+### Setup environment variables
+
+add `.env` file with Tenant ID of LangSmith and API Keys you want to run with.
+Tenant ID can be taken from URL of LangSmith `https://smith.langchain.com/o/{THIS IS YOUR TENANT ID}`
+
+```
+LANGCHAIN_TENANT_ID=xxxxx
+
+# API Keys of LLM Provider you want to run with
+OPENAI_API_KEY=
+ANTHROPIC_API_KEY=
+GOOGLE_API_KEY=
+```
+
+To load `.env` file please install [direnv](https://github.com/direnv/direnv)(Note: We will enable loading .env without this shortly)
+Make the `.env` file accessable to `direnv`. Note: if you are using zsh, run 
+
+```
+eval "$(direnv hook zsh)"
+direnv allow .
 ```
 
 ### Configuration
