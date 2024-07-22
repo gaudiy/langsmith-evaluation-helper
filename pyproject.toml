@@ -9,7 +9,7 @@ version = "0.1.1"
 readme = "README.md"
 license = { file = "LICENSE" }
 
-requires-python = ">= 3.11"
+requires-python = ">= 3.10"
 dependencies = [
   "langchain",
   "langchain-anthropic",
@@ -106,7 +106,7 @@ preview = true
 known-local-folder = ["langsmith_evaluation_helper"]
 
 [tool.mypy]
-python_version = "3.11"
+python_version = "3.10"
 ignore_missing_imports = true
 check_untyped_defs = true
 strict = true

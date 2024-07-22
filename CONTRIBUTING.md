@@ -46,7 +46,7 @@ To set up the development environment, follow these steps:
 
 1. **Create a virtual environment**: Create a virtual environment using the following command:
    ```bash
-   uv venv --python=$(which python3.11)
+   uv venv --python=$(which python3.10)
    ```
 
 2. **Activate the virtual environment**: Activate the virtual environment using the following command:

@@ -234,10 +234,10 @@ brew install uv
 
 
 ### Create a virtual environment
-Create a virtual environment at .venv. with a particular version of python, eg python3.11
+Create a virtual environment at .venv. with a particular version of python, eg python3.10
 
 ```
-uv venv --python=$(which python3.11)
+uv venv --python=$(which python3.10)
 ```
 
 To activate the virtual environment:
