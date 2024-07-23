@@ -306,7 +306,7 @@ pytest --cov=langsmith_evaluation_helper
 ```
 #### For only the unit test 
 ```
-make test
+make unit_test
 ```
 #### For all test including unit and integration test 
 ```
