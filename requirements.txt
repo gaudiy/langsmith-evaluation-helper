@@ -254,6 +254,7 @@ pytest==8.2.1
     # via
     #   pytest-asyncio
     #   pytest-cov
+    #   pytest-dotenv
     #   pytest-env
     #   pytest-mock
 pytest-asyncio==0.23.7
@@ -267,6 +268,8 @@ python-dateutil==2.9.0.post0
 python-debian==0.1.49
     # via reuse
 python-dotenv==1.0.1
+    # via
+    #   pytest-dotenv
 pytz==2024.1
     # via pandas
 pyyaml==6.0.1
