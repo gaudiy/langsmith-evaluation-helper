@@ -28,6 +28,7 @@ boolean-py==4.0
     #   license-expression
     #   reuse
 build==1.2.1
+    # via langsmith-evaluation-helper (pyproject.toml)
 cachetools==5.3.3
     # via google-auth
 certifi==2024.7.4
@@ -44,12 +45,11 @@ charset-normalizer==3.3.2
 coverage==7.5.1
     # via pytest-cov
 dataclasses-json==0.6.6
-    # via
-    #   langchain
-    #   langchain-community
+    # via langchain-community
 defusedxml==0.7.1
     # via langchain-anthropic
 direnv==2020.12.3
+    # via langsmith-evaluation-helper (pyproject.toml)
 distro==1.9.0
     # via
     #   anthropic
@@ -59,6 +59,7 @@ docutils==0.21.2
 env-file==2020.12.3
     # via direnv
 faker==25.2.0
+    # via langsmith-evaluation-helper (pyproject.toml)
 filelock==3.14.0
     # via huggingface-hub
 frozenlist==1.4.1
@@ -139,11 +140,15 @@ jsonpointer==2.4
     # via jsonpatch
 keyring==25.2.1
     # via twine
-langchain==0.2.0
-    # via langchain-community
+langchain==0.2.11
+    # via
+    #   langsmith-evaluation-helper (pyproject.toml)
+    #   langchain-community
 langchain-anthropic==0.1.13
+    # via langsmith-evaluation-helper (pyproject.toml)
 langchain-community==0.2.9
-langchain-core==0.2.1
+    # via langsmith-evaluation-helper (pyproject.toml)
+langchain-core==0.2.24
     # via
     #   langchain
     #   langchain-anthropic
@@ -153,12 +158,18 @@ langchain-core==0.2.1
     #   langchain-text-splitters
     #   langgraph
 langchain-google-genai==1.0.5
+    # via langsmith-evaluation-helper (pyproject.toml)
+langchain-google-vertexai==1.0.7
+    # via langsmith-evaluation-helper (pyproject.toml)
 langchain-openai==0.1.7
+    # via langsmith-evaluation-helper (pyproject.toml)
 langchain-text-splitters==0.2.0
     # via langchain
 langgraph==0.0.54
+    # via langsmith-evaluation-helper (pyproject.toml)
 langsmith==0.1.81
     # via
+    #   langsmith-evaluation-helper (pyproject.toml)
     #   langchain
     #   langchain-community
     #   langchain-core
@@ -181,6 +192,7 @@ multidict==6.0.5
     #   aiohttp
     #   yarl
 mypy==1.10.0
+    # via langsmith-evaluation-helper (pyproject.toml)
 mypy-extensions==1.0.0
     # via
     #   mypy
@@ -194,8 +206,11 @@ numpy==1.26.4
     #   langchain
     #   langchain-community
     #   pandas
+    #   shapely
 openai==1.30.1
-    # via langchain-openai
+    # via
+    #   langsmith-evaluation-helper (pyproject.toml)
+    #   langchain-openai
 orjson==3.10.3
     # via langsmith
 packaging==23.2
@@ -206,7 +221,9 @@ packaging==23.2
     #   marshmallow
     #   pytest
 pandas==2.2.2
+    # via langsmith-evaluation-helper (pyproject.toml)
 pip-licenses==4.4.0
+    # via langsmith-evaluation-helper (pyproject.toml)
 pkginfo==1.10.0
     # via twine
 pluggy==1.5.0
@@ -250,16 +267,22 @@ pyparsing==3.1.2
 pyproject-hooks==1.1.0
     # via build
 pyright==1.1.363
+    # via langsmith-evaluation-helper (pyproject.toml)
 pytest==8.2.1
     # via
+    #   langsmith-evaluation-helper (pyproject.toml)
     #   pytest-asyncio
     #   pytest-cov
     #   pytest-env
     #   pytest-mock
 pytest-asyncio==0.23.7
+    # via langsmith-evaluation-helper (pyproject.toml)
 pytest-cov==5.0.0
+    # via langsmith-evaluation-helper (pyproject.toml)
 pytest-env==1.1.3
+    # via langsmith-evaluation-helper (pyproject.toml)
 pytest-mock==3.14.0
+    # via langsmith-evaluation-helper (pyproject.toml)
 python-dateutil==2.9.0.post0
     # via
     #   faker
@@ -267,6 +290,7 @@ python-dateutil==2.9.0.post0
 python-debian==0.1.49
     # via reuse
 python-dotenv==1.0.1
+    # via langsmith-evaluation-helper (pyproject.toml)
 pytz==2024.1
     # via pandas
 pyyaml==6.0.1
@@ -292,6 +316,7 @@ requests==2.32.2
 requests-toolbelt==1.0.0
     # via twine
 reuse==4.0.2
+    # via langsmith-evaluation-helper (pyproject.toml)
 rfc3986==2.0.0
     # via twine
 rich==13.7.1
@@ -299,8 +324,11 @@ rich==13.7.1
 rsa==4.9
     # via google-auth
 ruff==0.4.4
+    # via langsmith-evaluation-helper (pyproject.toml)
 setuptools==70.0.0
-    # via nodeenv
+    # via
+    #   langsmith-evaluation-helper (pyproject.toml)
+    #   nodeenv
 six==1.16.0
     # via python-dateutil
 sniffio==1.3.1
@@ -330,8 +358,11 @@ tqdm==4.66.4
     #   huggingface-hub
     #   openai
 twine==5.1.0
+    # via langsmith-evaluation-helper (pyproject.toml)
 types-pyyaml==6.0.12.20240311
+    # via langsmith-evaluation-helper (pyproject.toml)
 types-requests==2.32.0.20240521
+    # via langsmith-evaluation-helper (pyproject.toml)
 typing-extensions==4.11.0
     # via
     #   anthropic
@@ -357,11 +388,13 @@ urllib3==2.2.2
 uuid6==2024.1.12
     # via langgraph
 uvloop==0.19.0
+    # via langsmith-evaluation-helper (pyproject.toml)
 values==2020.12.3
     # via env-file
 wcwidth==0.2.13
     # via prettytable
 wheel==0.43.0
+    # via langsmith-evaluation-helper (pyproject.toml)
 yarl==1.9.4
     # via aiohttp
 zipp==3.19.1
