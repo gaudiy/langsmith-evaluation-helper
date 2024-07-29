@@ -52,6 +52,10 @@ def get_prompt_template_and_kwargs_from_inputs(
     return PromptTemplate.from_template(prompt), kwargs
 
 
+def has_input_typed_prompt_template_properties(obj: Any) -> bool:
+    return hasattr(obj, "template") and hasattr(obj, "input")
+
+
 @traceable
 def execute_prompt(
     inputs: dict[Any, Any],
@@ -60,7 +64,7 @@ def execute_prompt(
 ) -> str:
     if isinstance(prompt, str):
         _prompt_template, kwargs = get_prompt_template_and_kwargs_from_inputs(prompt, inputs)
-    elif isinstance(prompt, InputTypedPromptTemplate):
+    elif has_input_typed_prompt_template_properties(prompt):
         _prompt_template, kwargs = get_prompt_template_and_kwargs_from_input_typed_prompt_template(prompt)
     else:
         raise ValueError(f"Invalid prompt type: {type(prompt)}")
