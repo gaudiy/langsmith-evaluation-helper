@@ -6,6 +6,10 @@ import os
 import subprocess
 import sys
 
+from dotenv import load_dotenv
+
+load_dotenv()
+
 
 def evaluate(config_path: str) -> None:
     # Determine the absolute path of loader.py within the package

@@ -30,6 +30,7 @@ dev = [
   "pytest",
   "pytest-mock",
   "pytest-env",
+  "pytest-dotenv",
   "pytest-asyncio",
   "ruff",
   "mypy",
@@ -58,6 +59,9 @@ langsmith-evaluation-helper = "langsmith_evaluation_helper.cli:main"
 markers = [
     "integration_test: These tests are specifically for integrations and should be used judiciously."
 ]
+
+env_files = ".env"
+
 
 [tool.ruff]
 line-length = 120

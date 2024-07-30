@@ -64,14 +64,6 @@ ANTHROPIC_API_KEY=
 GOOGLE_API_KEY=
 ```
 
-To load `.env` file please install [direnv](https://github.com/direnv/direnv)(Note: We will enable loading .env without this shortly)
-Make the `.env` file accessable to `direnv`. Note: if you are using zsh, run 
-
-```
-eval "$(direnv hook zsh)"
-direnv allow .
-```
-
 ### Configuration
 Capabilities of `config.yml` file.
 
@@ -314,7 +306,7 @@ pytest --cov=langsmith_evaluation_helper
 ```
 #### For only the unit test 
 ```
-make test
+make unit_test
 ```
 #### For all test including unit and integration test 
 ```

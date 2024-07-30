@@ -159,8 +159,6 @@ langchain-core==0.2.24
     #   langgraph
 langchain-google-genai==1.0.5
     # via langsmith-evaluation-helper (pyproject.toml)
-langchain-google-vertexai==1.0.7
-    # via langsmith-evaluation-helper (pyproject.toml)
 langchain-openai==0.1.7
     # via langsmith-evaluation-helper (pyproject.toml)
 langchain-text-splitters==0.2.0
@@ -206,7 +204,6 @@ numpy==1.26.4
     #   langchain
     #   langchain-community
     #   pandas
-    #   shapely
 openai==1.30.1
     # via
     #   langsmith-evaluation-helper (pyproject.toml)
@@ -273,11 +270,14 @@ pytest==8.2.1
     #   langsmith-evaluation-helper (pyproject.toml)
     #   pytest-asyncio
     #   pytest-cov
+    #   pytest-dotenv
     #   pytest-env
     #   pytest-mock
 pytest-asyncio==0.23.7
     # via langsmith-evaluation-helper (pyproject.toml)
 pytest-cov==5.0.0
+    # via langsmith-evaluation-helper (pyproject.toml)
+pytest-dotenv==0.5.2
     # via langsmith-evaluation-helper (pyproject.toml)
 pytest-env==1.1.3
     # via langsmith-evaluation-helper (pyproject.toml)
@@ -290,7 +290,9 @@ python-dateutil==2.9.0.post0
 python-debian==0.1.49
     # via reuse
 python-dotenv==1.0.1
-    # via langsmith-evaluation-helper (pyproject.toml)
+    # via
+    #   langsmith-evaluation-helper (pyproject.toml)
+    #   pytest-dotenv
 pytz==2024.1
     # via pandas
 pyyaml==6.0.1
