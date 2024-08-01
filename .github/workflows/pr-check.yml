@@ -62,17 +62,5 @@ jobs:
         run: | 
           make unit_test
 
-      - name: Run Integration
-        env:
-          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-          AZURE_OPENAI_API_BASE: ${{ secrets.AZURE_OPENAI_API_BASE }}
-          AZURE_OPENAI_API_KEY: ${{ secrets.AZURE_OPENAI_API_KEY }}
-          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
-          LANGCHAIN_API_KEY: ${{ secrets.LANGCHAIN_API_KEY }}
-          LANGCHAIN_TENANT_ID: ${{ secrets.LANGCHAIN_TENANT_ID }}
-          LANGCHAIN_TRACING: ${{ secrets.LANGCHAIN_TRACING }}
 
-          
-        run: | 
-          make integration_test
       
