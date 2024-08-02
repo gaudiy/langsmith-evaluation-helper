@@ -43,7 +43,7 @@ jobs:
           uv pip sync --system requirements.txt
           uv pip install --system -e .
 
-      - name: Run Integration
+      - name: Run Integration Test
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           AZURE_OPENAI_API_BASE: ${{ secrets.AZURE_OPENAI_API_BASE }}
