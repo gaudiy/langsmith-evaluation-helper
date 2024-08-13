@@ -69,9 +69,6 @@ def execute_prompt(
     else:
         raise ValueError(f"Invalid prompt type: {type(prompt)}")
 
-    messages = _prompt_template.format(**kwargs)
-    formatted_messages = PromptTemplate.from_template(messages)
-
     model_id = provider["id"]
     model = getattr(ChatModelName, model_id, None)
     provider_config = provider.get("config", {})
@@ -90,7 +87,8 @@ def execute_prompt(
         )
     else:
         raise ValueError(f"Invalid model_id: {model_id}")
-    result = llm.invoke(formatted_messages)
+
+    result = llm.invoke(_prompt_template, **kwargs)
     return result
 
 
