@@ -165,6 +165,7 @@ Defines the parameters for running tests on the conversation prompts.
 | `experiment_prefix`       | Prefix for naming experiments.                                      | `experiment_prefix: config_prompt_1` | Sets a prefix to distinguish experiments.                |
 | `max_concurrency`         | Number of tests or evaluations that can run concurrently.           | `max_concurrency: 4`                 | Determines how many tests can be run in parallel.        |
 | `num_repetitions`         | Specify how many times to run/evaluate each example in your dataset | `num_repetitions: 3`                 |                                                          |
+| `metadata_keys`         | Specify to add metadata from dataset examples | `metadata_keys:  - key1`                 |                                                          |
 | **`assert`**              | Specifies validation criteria for test results.                     |                                      |                                                          |
 | `type`                    | Type of assertion to validate the results.                          | `type: length`                       | Type of assertion                                        |
 | `value`                   | Defines the validation condition.                                   | `value: "<= 200"`                    | the condition of assertion metrics                       |
