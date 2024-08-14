@@ -39,8 +39,6 @@ def load_dataset(config: dict[Any, Any]) -> tuple[Any, Any, Any, list[str] | Non
     split_string = test_info.get("split", None)
     limit = test_info.get("limit", None)
 
-    print(metadata_keys)
-
     if split_string is None and limit is None and len(metadata_keys) == 0:
         return dataset_name, experiment_prefix, num_repetitions, metadata_keys
     limit = int(limit) if limit is not None else MAX_EXAMPLES_COUNT
@@ -122,14 +120,14 @@ def extract_metadata(dataset_examples, metadata_keys: list[str]) -> dict[str, An
 
     metadatas = {}
     for key in metadata_keys:
-        metadatas[key] = dataset_examples[0].metadata.get(key, None)
+        if key in dataset_examples[0].metadata:
+            metadatas[key] = dataset_examples[0].metadata.get(key, None)
 
-    return metadatas
+    return metadatas if len(metadatas) > 0 else None
 
 
 async def main(config_file: dict[Any, Any]) -> None:
     dataset_examples, experiment_prefix, num_repetitions, metadata_keys = load_dataset(config_file)
-    print(dataset_examples, experiment_prefix, num_repetitions, metadata_keys)
     metadatas = extract_metadata(dataset_examples, metadata_keys)
     evaluators, summary_evaluators = load_evaluators(config_file)
     max_concurrency = config_file["tests"].get("max_concurrency", None)
