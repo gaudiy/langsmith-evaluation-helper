@@ -29,7 +29,7 @@ def load_config(config_path: Any) -> dict[str, Any]:
     return config
 
 
-def load_dataset(config: dict[Any, Any]) -> tuple[Any, Any, Any, list[str] | None]:
+def load_dataset(config: dict[Any, Any]) -> tuple[Any, Any, Any, list[str]]:
     test_info = config["tests"]
 
     dataset_name = test_info["dataset_name"]
