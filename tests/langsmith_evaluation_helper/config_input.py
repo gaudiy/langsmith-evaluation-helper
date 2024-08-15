@@ -252,6 +252,28 @@ class Configurations:
             dataset_name: Toxic Queries
             experiment_prefix: config_prompt_1
         """,
+        "with_metadata": """
+        description: Testing load_dataset with metadata keys
+
+        evaluators_file_path: test_evaluation1.py
+
+        prompt:
+          name: prompt.py
+          type: python
+          entry_function: test_function1
+
+        providers:
+          - id: Model1
+            config:
+              temperature: 0.7
+
+        tests:
+            dataset_name: Toxic Queries
+            experiment_prefix: config_prompt_1
+            metadata_keys:
+              - key1
+              - key2
+        """,
         "integration_loader": """
         description: End to end integration test
 

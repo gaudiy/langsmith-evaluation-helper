@@ -29,24 +29,25 @@ def load_config(config_path: Any) -> dict[str, Any]:
     return config
 
 
-def load_dataset(config: dict[Any, Any]) -> tuple[Any, Any, Any]:
+def load_dataset(config: dict[Any, Any]) -> tuple[Any, Any, Any, list[str]]:
     test_info = config["tests"]
 
     dataset_name = test_info["dataset_name"]
     experiment_prefix = test_info["experiment_prefix"]
     num_repetitions = test_info.get("num_repetitions", 1)
+    metadata_keys = test_info.get("metadata_keys", [])
     split_string = test_info.get("split", None)
     limit = test_info.get("limit", None)
 
-    if split_string is None and limit is None:
-        return dataset_name, experiment_prefix, num_repetitions
+    if split_string is None and limit is None and len(metadata_keys) == 0:
+        return dataset_name, experiment_prefix, num_repetitions, metadata_keys
     limit = int(limit) if limit is not None else MAX_EXAMPLES_COUNT
 
     client = Client()
     examples = list(client.list_examples(dataset_name=dataset_name))
 
     if split_string is None and limit > 0:
-        return examples[:limit], experiment_prefix, num_repetitions
+        return examples[:limit], experiment_prefix, num_repetitions, metadata_keys
 
     splits = set(split_string.split(" "))
 
@@ -61,7 +62,7 @@ def load_dataset(config: dict[Any, Any]) -> tuple[Any, Any, Any]:
     test_examples = test_examples[:limit]
 
     if len(test_examples) > 0:
-        return (test_examples, experiment_prefix, num_repetitions)
+        return (test_examples, experiment_prefix, num_repetitions, metadata_keys)
     else:
         raise ValueError(f"No examples found for the dataset split: {split_string}")
 
@@ -81,6 +82,7 @@ async def run_evaluate(
     provider: dict[Any, Any],
     experiment_prefix: str,
     num_repetitions: int,
+    metadatas: dict[str, Any] | None,
     **kwargs: dict[str, Any],
 ) -> tuple[Any, Any]:
     experiment_prefix_provider = experiment_prefix + provider["id"]
@@ -88,12 +90,14 @@ async def run_evaluate(
 
     is_async = is_async_function(prompt_func)
 
+    metadata = {"prompt_version": "1"}
+    if metadatas:
+        metadata.update(metadatas)
+
     common_args = {
         "experiment_prefix": experiment_prefix_provider,
         "num_repetitions": num_repetitions,
-        "metadata": {
-            "prompt_version": "1",
-        },
+        "metadata": metadata,
         **kwargs,
     }
 
@@ -110,8 +114,26 @@ async def run_evaluate(
     return dataset_id, experiment_id
 
 
+def extract_metadata(dataset_examples: str | list[Any], metadata_keys: list[str]) -> dict[str, Any] | None:
+    if (
+        len(metadata_keys) == 0
+        or isinstance(dataset_examples, str)
+        or not dataset_examples
+        or dataset_examples[0].metadata is None
+    ):
+        return None
+
+    metadatas = {}
+    for key in metadata_keys:
+        if key in dataset_examples[0].metadata:
+            metadatas[key] = dataset_examples[0].metadata.get(key, None)
+
+    return metadatas if len(metadatas) > 0 else None
+
+
 async def main(config_file: dict[Any, Any]) -> None:
-    dataset_name, experiment_prefix, num_repetitions = load_dataset(config_file)
+    dataset_examples, experiment_prefix, num_repetitions, metadata_keys = load_dataset(config_file)
+    metadatas = extract_metadata(dataset_examples, metadata_keys)
     evaluators, summary_evaluators = load_evaluators(config_file)
     max_concurrency = config_file["tests"].get("max_concurrency", None)
     providers = config_file["providers"]
@@ -123,11 +145,12 @@ async def main(config_file: dict[Any, Any]) -> None:
         run_evaluate(
             provider,
             experiment_prefix,
-            data=dataset_name,
+            data=dataset_examples,
             evaluators=evaluators,
             summary_evaluators=summary_evaluators,
             max_concurrency=max_concurrency,
             num_repetitions=num_repetitions,
+            metadatas=metadatas,
         )
         for provider in providers
     ]

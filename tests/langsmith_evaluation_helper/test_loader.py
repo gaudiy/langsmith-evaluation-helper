@@ -114,13 +114,17 @@ def test_load_dataset(
     test_info = config_file["tests"]
     split_string = test_info.get("split", None)
     limit = test_info.get("limit", None)
-    dataset_output, experiment_prefix, _ = load_dataset(config_file)
+    dataset_output, experiment_prefix, _, metadata_keys = load_dataset(config_file)
 
     # Testing for no-split, no-limit
     expected_dataset_name = test_info["dataset_name"]
     expected_experiment_prefix = test_info["experiment_prefix"]
-    if split_string is None and limit is None:
+    if split_string is None and limit is None and len(metadata_keys) == 0:
         assert dataset_output == expected_dataset_name
+        assert experiment_prefix == expected_experiment_prefix
+
+    if split_string is None and limit is None and len(metadata_keys) > 0:
+        assert dataset_output == response_examples
         assert experiment_prefix == expected_experiment_prefix
 
     mocked_examples = response_examples
@@ -171,6 +175,7 @@ async def test_main(
         "dataset_name",
         "experiment_prefix",
         "num_repititions",
+        [],
     )
     mock_load_evaluators.return_value = (["evaluator1"], ["summary_evaluator1"])
     mock_run_evaluate.return_value = ("dataset_id", "experiment_id")
