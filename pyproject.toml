@@ -39,7 +39,6 @@ dev = [
   "types-requests",
   "pytest-cov",
   "types-pyyaml",
-  "direnv", 
   "build",
   "setuptools",
   "wheel",
