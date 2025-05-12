@@ -3,6 +3,7 @@
 # SPDX-License-Identifier: Apache-2.0
 
 import os
+import warnings
 from enum import Enum
 from typing import Any
 
@@ -25,6 +26,7 @@ class ChatModelName(Enum):
     AZURE_GPT4_32K = "gpt-4-32k"
     GEMINI_PRO = "gemini-pro"
     GEMINI_FLASH = "gemini-1.5-flash-001"
+    GEMINI_2_FLASH = "gemini-2.0-flash"
     CLAUDE3_SONNET = "claude3-sonnet"
     CLAUDE3_OPUS = "claude-3-opus-20240229"
     CLAUDE3_HAIKU = "claude-3-haiku-20240307"
@@ -59,6 +61,12 @@ def get_chat_model(name: ChatModelName, **kwargs: Any) -> BaseChatModel:
             **kwargs,
         )
     elif name == ChatModelName.GEMINI_PRO or name == ChatModelName.GEMINI_FLASH:
+        if name == ChatModelName.GEMINI_PRO or name == ChatModelName.GEMINI_FLASH:
+            warnings.warn(
+                "gemini 1.0 will be deprecated 2025-04-09 and gemini 1.5 flash will be deprecated 2025-09-24. Use GEMINI_2_FLASH instead. see details: https://cloud.google.com/vertex-ai/generative-ai/docs/learn/model-versions#discontinued_models",
+                DeprecationWarning,
+                stacklevel=2,
+            )
         return ChatVertexAI(
             model_name=name.value,
             **kwargs,
