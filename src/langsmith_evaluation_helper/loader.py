@@ -137,6 +137,7 @@ async def main(config_file: dict[Any, Any]) -> None:
     evaluators, summary_evaluators = load_evaluators(config_file)
     max_concurrency = config_file["tests"].get("max_concurrency", None)
     providers = config_file["providers"]
+    description = config_file["description"]
 
     dataset_id = None
     experiment_ids = []
@@ -151,6 +152,7 @@ async def main(config_file: dict[Any, Any]) -> None:
             max_concurrency=max_concurrency,
             num_repetitions=num_repetitions,
             metadatas=metadatas,
+            description=description,
         )
         for provider in providers
     ]
