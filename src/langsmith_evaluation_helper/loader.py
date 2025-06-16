@@ -5,10 +5,11 @@
 import asyncio
 import os
 import sys
-from typing import Any
+from typing import Any, cast
 
 import yaml
 from langsmith import Client, aevaluate, evaluate
+from langsmith.evaluation._runner import _ExperimentManager
 
 from langsmith_evaluation_helper.builtin_evaluators import (
     generate_builtin_evaluator_functions,
@@ -106,7 +107,8 @@ async def run_evaluate(
         dataset_id = await result._manager.get_dataset_id()
     else:
         result = evaluate(prompt_func, **common_args)
-        dataset_id = result._manager.dataset_id
+        manager = cast(_ExperimentManager, result._manager)
+        dataset_id = manager.dataset_id
     experiment_id = None
     if result._manager and result._manager._experiment and result._manager._experiment.id is not None:
         experiment_id = result._manager._experiment.id.__str__()

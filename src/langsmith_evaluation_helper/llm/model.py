@@ -10,10 +10,10 @@ from langchain.chat_models.base import BaseChatModel
 from langchain.schema.output_parser import StrOutputParser
 from langchain_anthropic import ChatAnthropic
 from langchain_core.prompts import PromptTemplate
-from langchain_core.pydantic_v1 import SecretStr
 from langchain_core.runnables import RunnableConfig
 from langchain_google_vertexai import ChatVertexAI
 from langchain_openai import AzureChatOpenAI, ChatOpenAI
+from pydantic import SecretStr
 
 
 class ChatModelName(Enum):
