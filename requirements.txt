@@ -205,7 +205,7 @@ langchain-text-splitters==0.2.0
     # via langchain
 langgraph==0.0.54
     # via langsmith-evaluation-helper (pyproject.toml)
-langsmith==0.1.81
+langsmith==0.7.31
     # via
     #   langsmith-evaluation-helper (pyproject.toml)
     #   langchain
