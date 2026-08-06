@@ -339,7 +339,7 @@ python-dateutil==2.9.0.post0
     #   pandas
 python-debian==0.1.49
     # via reuse
-python-dotenv==1.0.1
+python-dotenv==1.2.2
     # via
     #   langsmith-evaluation-helper (pyproject.toml)
     #   pytest-dotenv
