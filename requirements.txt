@@ -379,7 +379,7 @@ rsa==4.9
     # via google-auth
 ruff==0.4.4
     # via langsmith-evaluation-helper (pyproject.toml)
-setuptools==70.0.0
+setuptools==83.0.0
     # via
     #   langsmith-evaluation-helper (pyproject.toml)
     #   nodeenv
