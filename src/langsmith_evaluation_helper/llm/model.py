@@ -27,14 +27,31 @@ class ChatModelName(Enum):
     GEMINI_PRO = "gemini-pro"
     GEMINI_FLASH = "gemini-1.5-flash-001"
     GEMINI_2_FLASH = "gemini-2.0-flash"
-    CLAUDE3_SONNET = "claude3-sonnet"
+    CLAUDE3_SONNET = "claude-3-sonnet-20240229"
     CLAUDE3_OPUS = "claude-3-opus-20240229"
     CLAUDE3_HAIKU = "claude-3-haiku-20240307"
     CLAUDE3_5_SONNET = "claude-3-5-sonnet-20240620"
+    CLAUDE_OPUS_5 = "claude-opus-5"
+    CLAUDE_SONNET_5 = "claude-sonnet-5"
+    CLAUDE_HAIKU_4_5 = "claude-haiku-4-5-20251001"
 
 
 AZURE_OPENAI_API_KEY = os.getenv("AZURE_OPENAI_API_KEY", "")
 AZURE_OPENAI_API_BASE = os.getenv("AZURE_OPENAI_API_BASE", "")
+
+# Claude 3 models have reached end of life and the API rejects requests for them.
+LEGACY_CLAUDE_MODELS = {
+    ChatModelName.CLAUDE3_SONNET,
+    ChatModelName.CLAUDE3_OPUS,
+    ChatModelName.CLAUDE3_HAIKU,
+    ChatModelName.CLAUDE3_5_SONNET,
+}
+
+CLAUDE_MODELS = LEGACY_CLAUDE_MODELS | {
+    ChatModelName.CLAUDE_OPUS_5,
+    ChatModelName.CLAUDE_SONNET_5,
+    ChatModelName.CLAUDE_HAIKU_4_5,
+}
 
 
 def get_chat_model(name: ChatModelName, **kwargs: Any) -> BaseChatModel:
@@ -71,13 +88,16 @@ def get_chat_model(name: ChatModelName, **kwargs: Any) -> BaseChatModel:
             model_name=name.value,
             **kwargs,
         )
-    elif (
-        name == ChatModelName.CLAUDE3_SONNET
-        or name == ChatModelName.CLAUDE3_OPUS
-        or name == ChatModelName.CLAUDE3_HAIKU
-        or name == ChatModelName.CLAUDE3_5_SONNET
-    ):
-        return ChatAnthropic(model_name="claude-3-sonnet-20240229", **kwargs)
+    elif name in CLAUDE_MODELS:
+        if name in LEGACY_CLAUDE_MODELS:
+            warnings.warn(
+                f"{name.name} has reached end of life and the Anthropic API no longer serves it. "
+                "Use CLAUDE_OPUS_5, CLAUDE_SONNET_5 or CLAUDE_HAIKU_4_5 instead. "
+                "see details: https://docs.claude.com/en/docs/about-claude/model-deprecations",
+                DeprecationWarning,
+                stacklevel=2,
+            )
+        return ChatAnthropic(model_name=name.value, **kwargs)
     else:
         raise ValueError(f"Invalid model name. {name}")
 
