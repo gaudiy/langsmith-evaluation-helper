@@ -314,7 +314,7 @@ pyproject-hooks==1.1.0
     # via build
 pyright==1.1.363
     # via langsmith-evaluation-helper (pyproject.toml)
-pytest==8.2.1
+pytest==9.0.3
     # via
     #   langsmith-evaluation-helper (pyproject.toml)
     #   pytest-asyncio
