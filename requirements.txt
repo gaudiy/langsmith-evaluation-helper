@@ -181,7 +181,7 @@ langchain==0.2.11
     # via
     #   langsmith-evaluation-helper (pyproject.toml)
     #   langchain-community
-langchain-anthropic==0.1.13
+langchain-anthropic==1.4.6
     # via langsmith-evaluation-helper (pyproject.toml)
 langchain-community==0.2.9
     # via langsmith-evaluation-helper (pyproject.toml)
