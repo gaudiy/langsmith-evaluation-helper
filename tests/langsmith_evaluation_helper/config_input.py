@@ -210,7 +210,7 @@ class Configurations:
           - id: TURBO
             config:
               temperature: 0.7
-          - id: GPT4
+          # - id: GPT4  # gpt-4-0613 is retired
           - id: GPT4O
           - id: AZURE_GPT35_16K_TURBO
             config:
@@ -219,10 +219,9 @@ class Configurations:
               azure_api_version: 2023-08-01-preview
           # - id: GEMINI_PRO
           # - id: GEMINI_FLASH
-          - id: CLAUDE3_SONNET
-          - id: CLAUDE3_OPUS
-          - id: CLAUDE3_HAIKU
-          - id: CLAUDE3_5_SONNET
+          # Claude 3 models are retired; see LEGACY_CLAUDE_MODELS in llm/model.py
+          - id: CLAUDE_SONNET_5
+          - id: CLAUDE_HAIKU_4_5
 
 
 
