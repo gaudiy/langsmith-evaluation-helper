@@ -199,7 +199,7 @@ langchain-google-genai==1.0.5
     # via langsmith-evaluation-helper (pyproject.toml)
 langchain-google-vertexai==1.0.8
     # via langsmith-evaluation-helper (pyproject.toml)
-langchain-openai==0.1.7
+langchain-openai==1.1.14
     # via langsmith-evaluation-helper (pyproject.toml)
 langchain-text-splitters==0.2.0
     # via langchain
