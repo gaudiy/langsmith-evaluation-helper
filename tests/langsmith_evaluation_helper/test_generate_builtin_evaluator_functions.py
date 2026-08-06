@@ -100,7 +100,13 @@ def test_llm_judge_evaluator_logic(
 
 
 @pytest.mark.parametrize("config", Configurations.get_config("multiple_asserts"))
-def test_similar_evaluator(config: str, create_temp_config_file: Callable[[str], Path]) -> None:
+@mock.patch(
+    "langchain_openai.OpenAIEmbeddings.embed_documents",
+    return_value=[[1.0, 0.0, 0.0], [1.0, 0.0, 0.0]],
+)
+def test_similar_evaluator(
+    mock_embed_documents: mock.MagicMock, config: str, create_temp_config_file: Callable[[str], Path]
+) -> None:
     config_file_path = create_temp_config_file(config)
     config_file = load_config(str(config_file_path))
     config_file["tests"].get("assert", [])
@@ -112,3 +118,4 @@ def test_similar_evaluator(config: str, create_temp_config_file: Callable[[str],
     result = evaluator(run, example)
 
     assert isinstance(result, EvaluationResult | EvaluationResults)  # type: ignore
+    mock_embed_documents.assert_called_once()
