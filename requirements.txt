@@ -201,7 +201,7 @@ langchain-google-vertexai==1.0.8
     # via langsmith-evaluation-helper (pyproject.toml)
 langchain-openai==0.1.7
     # via langsmith-evaluation-helper (pyproject.toml)
-langchain-text-splitters==0.2.0
+langchain-text-splitters==1.1.2
     # via langchain
 langgraph==0.0.54
     # via langsmith-evaluation-helper (pyproject.toml)
