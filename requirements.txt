@@ -355,7 +355,7 @@ readme-renderer==43.0
     # via twine
 regex==2024.5.15
     # via tiktoken
-requests==2.32.2
+requests==2.33.0
     # via
     #   google-api-core
     #   google-cloud-bigquery
