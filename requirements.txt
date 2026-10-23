@@ -33,7 +33,7 @@ build==1.2.1
     # via langsmith-evaluation-helper (pyproject.toml)
 cachetools==5.3.3
     # via google-auth
-certifi==2024.7.4
+certifi==2026.10.19
     # via
     #   httpcore
     #   httpx
