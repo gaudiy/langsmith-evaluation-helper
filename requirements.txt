@@ -60,7 +60,7 @@ docutils==0.21.2
     # via readme-renderer
 faker==25.2.0
     # via langsmith-evaluation-helper (pyproject.toml)
-filelock==3.14.0
+filelock==4.2.1
     # via huggingface-hub
 frozenlist==1.4.1
     # via
